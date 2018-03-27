@@ -1,7 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class UIController : MonoBehaviour {
     // 获取UI控件的各种事件并负责绘制
@@ -21,7 +23,8 @@ public class UIController : MonoBehaviour {
     public static EventHandler Handler;
 
     // Use this for initialization
-    void Start() {
+    private void Awake()
+    {
         #region buttonsDefinition
         dealButton = GameObject.Find("Canvas/dealButton").GetComponent<Button>();//出牌按钮
         dropButton = GameObject.Find("Canvas/dropButton").GetComponent<Button>();//弃牌按钮
@@ -32,7 +35,9 @@ public class UIController : MonoBehaviour {
         menuPanel = GameObject.Find("Canvas/menuPanel"); //菜单
         menuPanel.SetActive(isMenuShow); //默认隐藏
         text = GameObject.Find("Canvas/testText").GetComponent<Text>();//测试用文本
-        //测试
+
+    }
+    void Start() {
 
         #region addButtonListener
         dealButton.onClick.AddListener(delegate
@@ -73,6 +78,7 @@ public class UIController : MonoBehaviour {
             menuPanel.SetActive(isMenuShow);
         });
         #endregion
+        AddCard(0);
     }
 
     // Update is called once per frame
@@ -85,5 +91,12 @@ public class UIController : MonoBehaviour {
         }
 	}
 
-    
+    void AddCard(int playerNum)
+    {
+        GameObject HeapPos = GameObject.Find(String.Format("Canvas/Player{0}/HeapPos", playerNum));
+        //generate new card
+        GameObject Card = GameObject.Find("Canvas/Card");
+        Card.transform.DOMove(HeapPos.transform.position, 3, false);
+    }
+
 }

@@ -15,7 +15,7 @@ public class CardInfo : IComparable //IComparable
 
     }
     private CardTypes cardType; //牌的类型
-    private int cardIndex;      //牌在所在类型的索引1-13
+    private int cardIndex;      //牌在所在类型的索引
     
 
     public CardInfo(string cardName)
