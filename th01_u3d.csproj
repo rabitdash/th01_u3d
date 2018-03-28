@@ -277,6 +277,8 @@
     <Compile Include="Assets\Scripts\Card\Card.cs" />
     <Compile Include="Assets\Scripts\Card\CardInfo.cs" />
     <Compile Include="Assets\Scripts\Card\CardManager.cs" />
+    <Compile Include="Assets\Scripts\logoutButton.cs" />
+    <Compile Include="Assets\Scripts\menuButton.cs" />
     <Compile Include="Assets\Scripts\Move.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\Scripts\startButton.cs" />

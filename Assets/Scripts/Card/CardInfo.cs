@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class CardInfo : IComparable //IComparable
+public class CardInfo : IComparable
 {
     public string cardName; //卡牌图片名
     enum CardTypes
@@ -16,6 +16,7 @@ public class CardInfo : IComparable //IComparable
     }
     private CardTypes cardType; //牌的类型
     private int cardIndex;      //牌在所在类型的索引
+    public bool isSelected;
     
 
     public CardInfo(string cardName)
