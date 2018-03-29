@@ -56,6 +56,7 @@ public class UIController : MonoBehaviour {
             isMenuShow = !isMenuShow;
             menuPanel.SetActive(isMenuShow);
         });
+
         #endregion
     }
     void Start() {

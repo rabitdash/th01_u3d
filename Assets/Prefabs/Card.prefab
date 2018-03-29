@@ -21,8 +21,8 @@ GameObject:
   - component: {fileID: 224047610946121468}
   - component: {fileID: 222202058874472868}
   - component: {fileID: 114439056443569050}
-  - component: {fileID: 114733783642126496}
   - component: {fileID: 114098436076364146}
+  - component: {fileID: 114840652028847956}
   m_Layer: 5
   m_Name: Card
   m_TagString: Untagged
@@ -68,7 +68,7 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114733783642126496
+--- !u!114 &114840652028847956
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -80,12 +80,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Delegates:
-  - eventID: 4
+  - eventID: 0
     callback:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 114098436076364146}
-          m_MethodName: SetSelectState
+          m_MethodName: OnMouseEnter
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
+        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 114098436076364146}
+          m_MethodName: OnMouseExit
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
