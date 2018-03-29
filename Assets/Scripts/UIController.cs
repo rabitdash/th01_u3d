@@ -6,12 +6,12 @@ using UnityEngine.UI;
 using DG.Tweening;
 
 public class UIController : MonoBehaviour {
-    // 获取UI控件的各种事件
+    // 获取UI控件事件并发送消息
     private Button dealButton; //出牌按钮
     private Button dropButton; //弃牌按钮
     private Button logoutButton; //退出按钮
     private Button menuButton; //菜单按钮
-    private Button startButton;
+    private Button startButton; //开始游戏按钮
 
     private GameObject menuPanel;
     private bool isMenuShow = false; //显示菜单
@@ -35,7 +35,7 @@ public class UIController : MonoBehaviour {
         menuPanel.SetActive(isMenuShow); //默认隐藏
         text = GameObject.Find("Canvas/testText").GetComponent<Text>();//测试用文本
 
-        #region 按钮监听事件
+        #region 按钮监听事件函数
         dealButton.onClick.AddListener(delegate
         {
             Debug.Log("dealButton");
@@ -67,13 +67,5 @@ public class UIController : MonoBehaviour {
     void Update () {
         
 	}
-
-    void AddCard()
-    {
-        GameObject HeapPos = GameObject.Find(String.Format("Canvas/Player{0}/HeapPos", 0));
-        //generate new card
-        GameObject Card = GameObject.Find("Canvas/Card");
-        Card.transform.DOMove(HeapPos.transform.position, 3, false);
-    }
 
 }

@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class BattleController : MonoBehaviour
 {
+    //战斗逻辑部分
     //变量定义
-    public static string message = null; //UIController从外部将消息写入message
+    //public static string message = null; //UIController从外部将消息写入message
 
     void Start()
     {
@@ -14,10 +15,10 @@ public class BattleController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        while (message != null)
+        //while (message != null)
         {
-            Debug.Log(message);
-            message = null;//清空message
+        //    Debug.Log(message);
+        //    message = null;//清空message
         }
     }
     

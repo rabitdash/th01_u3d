@@ -6,7 +6,9 @@ using UnityEngine;
 
 public class CardInfo : IComparable
 {
-    public string cardName; //卡牌图片名
+    //负责卡牌非U3D对象信息，实现比较接口
+    public string cardName; //卡牌名
+
     enum CardTypes
     {
         Artifact  = 1, //神器卡
@@ -19,10 +21,10 @@ public class CardInfo : IComparable
     public bool isSelected;
     
 
-    public CardInfo(string cardName)
+    public CardInfo(string cardName) //初始化构造函数
     {
         this.cardName = cardName;
-        var splits = cardName.Split('_'); //下有文件命名规则
+        var splits = cardName.Split('_'); //另附文件命名规则：
 
         switch (splits[1])
         {
