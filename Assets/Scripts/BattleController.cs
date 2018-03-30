@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using SLua;
 
+[CustomLuaClass]
 public class BattleController : MonoBehaviour
 {
     //战斗逻辑部分

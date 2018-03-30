@@ -11,7 +11,7 @@ public class CardInfo : IComparable
     public string cardName; //卡牌名
     public int cardID; //卡牌ID，卡牌唯一
     public int playerNum; //这张卡目前是谁持有
-    public bool isSelected = false; //是否被选中
+    public bool isSelected; //是否被选中
     public bool isCovered; //是否被暗置
     private bool isDrop; //是否被弃牌
     private bool isUsed; //是否已发动技能
@@ -29,6 +29,7 @@ public class CardInfo : IComparable
     public CardInfo(string cardFileName) //初始化构造函数
     {
         var splits = cardFileName.Split('_'); //文件名：卡牌名_卡牌类型_卡牌索引.png
+        this.isSelected = false;
         this._cardFileName = cardFileName;
         this.cardName = splits[0];//获取卡牌名称
         cardIndex = Convert.ToInt32(splits[2]); //获取卡牌索引

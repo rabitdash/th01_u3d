@@ -3,6 +3,9 @@ using System.Collections;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
+using SLua;
+
+[Serializable][CustomLuaClass]
 public class Card : MonoBehaviour
 {
     //是一个Unity中的游戏对象类
@@ -30,10 +33,10 @@ public class Card : MonoBehaviour
 
     void Update()
     {
+    }
 
-}
 
-    public void InitCard(CardInfo cardInfo,int cardId)
+    public void InitCard(CardInfo cardInfo,int cardId) //初始化卡牌对象数据
     {
         this.cardInfo = cardInfo;
         cardInfo.cardID = cardId;
@@ -41,7 +44,7 @@ public class Card : MonoBehaviour
         InitCardSkill();
         InitDescription();
     }
-
+    #region InitCard()所需函数
     private void InitImage()
     {
         Debug.Log(cardInfo._cardFileName);
@@ -57,9 +60,10 @@ public class Card : MonoBehaviour
 
     private void InitCardSkill() //初始化卡牌技能
     {
+
         //TODO
     }
-
+    #endregion
     public void ExecuteCardSkill(int toPlayerNum) //执行卡牌技能
     {
         //TODO

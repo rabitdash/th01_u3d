@@ -1,4 +1,4 @@
 # th01_u3d
-Assets/Scenes 场景文件
-Assets/Scripts 脚本
-Assets/Images 图片
+Assets/Scenes 鍦烘櫙鏂囦欢
+Assets/Scripts 鑴氭湰鏂囦欢
+Assets/Images 鏉傚浘
