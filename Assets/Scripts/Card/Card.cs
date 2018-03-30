@@ -1,24 +1,78 @@
 ﻿using System;
+using System.Collections;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 public class Card : MonoBehaviour
 {
     //是一个Unity中的游戏对象类
-    private Image image;        //牌的图片
-    private CardInfo cardInfo;  //卡牌信息
-    private bool isSelected = false;    //是否选中
+    private Image faceImage;        //牌的图片
+    public CardInfo cardInfo;  //卡牌信息
+    private TextAsset description; //卡牌描述
+    private Text textBox;
+
+    private CanvasRenderer imageRenderer;
+
     GameObject go;
+    private Transform self;
+
     void Awake()
     {
-        image = GetComponent<Image>();
-        go = GameObject.Find("Canvas/Player0/HeapPos");
+
+        self = transform.Find("Face");
+        faceImage = self.GetComponent<Image>();
+        StartCoroutine(Timer());
+
+        imageRenderer = self.GetComponent<CanvasRenderer>();
+        imageRenderer.SetAlpha(1f);
 
     }
-    public void InitImage(CardInfo cardInfo)
+
+    void Update()
+    {
+
+}
+
+    public void InitCard(CardInfo cardInfo,int cardId)
     {
         this.cardInfo = cardInfo;
-        image.sprite = Resources.Load("Images/Cards/" + cardInfo.cardName, typeof(Sprite)) as Sprite;
+        cardInfo.cardID = cardId;
+        InitImage();
+        InitCardSkill();
+        InitDescription();
+    }
+
+    private void InitImage()
+    {
+        Debug.Log(cardInfo._cardFileName);
+        faceImage.sprite = Resources.Load("Cards/Images/" + cardInfo._cardFileName, typeof(Sprite)) as Sprite;
+        
+    }
+
+    private void InitDescription()//TODO
+    {
+        description = Resources.Load("Cards/Descriptions/" + cardInfo._cardFileName, typeof(TextAsset)) as TextAsset;
+        Debug.Log(description.text);
+    }
+
+    private void InitCardSkill() //初始化卡牌技能
+    {
+        //TODO
+    }
+
+    public void ExecuteCardSkill(int toPlayerNum) //执行卡牌技能
+    {
+        //TODO
+    }
+
+    IEnumerator Timer() //Debug
+    {
+        while (true)
+        {
+            Debug.Log("TimerUp");
+            yield return new WaitForSeconds(3);
+        }
+
     }
 
     #region 鼠标事件函数,直接执行
@@ -29,7 +83,7 @@ public class Card : MonoBehaviour
         if (!DOTween.IsTweening(transform))
         {
 
-            transform.DOMoveY(trans.position.y + 10/0f, 0.01f);
+            transform.DOMoveY(trans.position.y + 100f, 0.01f);
             transform.DOScale(new Vector3(1f, 1f, 1f), 0.01f);
         }
         Debug.Log("OnMouseEnter");
@@ -46,8 +100,12 @@ public class Card : MonoBehaviour
         }
         Debug.Log("OnMouseExit");
     }
-    //玩家鼠标拖动卡牌
-    //cardInfo.isSelected = true;
+    //玩家鼠标点击卡牌
+    public void OnMouseDown()
+    {
+        this.cardInfo.isSelected = !this.cardInfo.isSelected;//卡牌初始化时默认isSelected=false
+
+    }
     #endregion
 }
 

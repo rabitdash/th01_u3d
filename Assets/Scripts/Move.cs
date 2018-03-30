@@ -12,7 +12,6 @@ public class Move : MonoBehaviour {
 	void Start () {
         for(int i = 0; i < 10; i++)
         {
-
             var tmp = Instantiate(cardPrefab, originalPosition.transform.position + Vector3.right * 20f*i, Quaternion.identity);
             tmp.transform.SetParent(GameObject.Find("Canvas/Player0/HeapPos").transform);
             tmp.GetComponent<RectTransform>().localScale = Vector3.one * 0.3f;

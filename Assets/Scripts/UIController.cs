@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using UnityEngine.Assertions;
 
 public class UIController : MonoBehaviour {
     // 获取UI控件事件并发送消息
@@ -11,7 +12,6 @@ public class UIController : MonoBehaviour {
     private Button dropButton; //弃牌按钮
     private Button logoutButton; //退出按钮
     private Button menuButton; //菜单按钮
-    private Button startButton; //开始游戏按钮
 
     private GameObject menuPanel;
     private bool isMenuShow = false; //显示菜单
@@ -28,7 +28,6 @@ public class UIController : MonoBehaviour {
         dropButton = GameObject.Find("Canvas/dropButton").GetComponent<Button>();//弃牌按钮
         logoutButton = GameObject.Find("Canvas/menuPanel/logoutButton").GetComponent<Button>();//退出按钮
         menuButton = GameObject.Find("Canvas/menuButton").GetComponent<Button>();//菜单按钮
-        startButton = GameObject.Find("Canvas/startButton").GetComponent<Button>();//
         #endregion
         
         menuPanel = GameObject.Find("Canvas/menuPanel"); //菜单
@@ -39,6 +38,7 @@ public class UIController : MonoBehaviour {
         dealButton.onClick.AddListener(delegate
         {
             Debug.Log("dealButton");
+            
 
         });
         dropButton.onClick.AddListener(delegate
