@@ -12,7 +12,7 @@ public class CardInfo : IComparable
     public int cardID; //卡牌ID，卡牌唯一
     public int playerNum; //这张卡目前是谁持有
     public bool isSelected; //是否被选中
-    public bool isCovered; //是否被暗置
+    public bool isCovered = false; //是否被暗置
     private bool isDrop; //是否被弃牌
     private bool isUsed; //是否已发动技能
     private CardTypes cardType; //牌的类型

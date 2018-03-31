@@ -28,7 +28,7 @@ public class UIController : MonoBehaviour {
         #region 按钮事件监听
         confirmButton.onClick.AddListener(delegate
         {
-            Debug.Log("dealButtonClicked!");
+            Debug.Log("confirmButtonClicked!");
         });
 
         #endregion

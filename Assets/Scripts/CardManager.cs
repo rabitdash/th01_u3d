@@ -15,7 +15,9 @@ public class CardManager : MonoBehaviour {
     public GameObject publicDropHeap;//弃牌堆位置
     public int nplayer; //参与游戏的玩家数量
     private List<CardInfo> allCardInfos = new List<CardInfo>(); //所有的CardInfo
+    private List<Transform> allPlayersTransform; //所有Player的位置
     private Dictionary<int, List<int>> _PlayerCards = new Dictionary<int, List<int>>(); //key:玩家编号 value:卡牌ID
+    private Dictionary<int, string> _IdOfCardName = new Dictionary<int, string>(); //key:卡牌ID value:卡牌名称
     private Dictionary<int, GameObject> _cardIdDictionary = new Dictionary<int, GameObject>(); //key:卡牌编号 value:卡牌GameObject对象
     #endregion
 
@@ -24,9 +26,10 @@ public class CardManager : MonoBehaviour {
     {
         for (var i = 0; i < nplayer; i++)
         {
-
+            allPlayersTransform[i] = GameObject.Find(String.Format("Canvas/Players/Player{0}", i)).GetComponent<Transform>();//查找所有玩家位置
         }
     }
+
     //生成Card对象数组
     private void InitAllCards()
     {
@@ -44,9 +47,9 @@ public class CardManager : MonoBehaviour {
                 
         }
 
-        foreach (var cardFileName in allCardNames)
+        foreach (var cardFileName in allCardNames)//遍历卡牌文件名数组
         {
-            allCardInfos.Add(new CardInfo(cardFileName)); //调用CardInfo构造函数，将对象加入列表
+            allCardInfos.Add(new CardInfo(cardFileName)); //调用CardInfo构造函数，将CardInfo对象加入列表(1)
         }
            
     }
@@ -54,17 +57,23 @@ public class CardManager : MonoBehaviour {
     //生成卡牌GameObject对象
     private void GenerateCardObjects()
     {
-        for (var i = 0; i < 1; i++)
+        for (var i = 0; i < allCardInfos.Count; i++)
         {
-            var card = Instantiate(cardPrefab, publicCardHeap.transform);//复制构造对象
-            card.GetComponent<Card>().InitCard(allCardInfos[i], i); //每张卡都有专属ID和CardInfo
-            _cardIdDictionary.Add(i, card); //将ID与对应的卡牌GameObject对象存入字典
+            var card = Instantiate(cardPrefab, publicCardHeap.transform);//复制构造Card对象
+            card.name = string.Format("Card{0}", i);
+            card.GetComponent<Card>().InitCard(allCardInfos[i], i); //每张卡都有专属ID和CardInfo，利用(1)中生成的CardInfo对象生成Card对象的属性
+            _cardIdDictionary.Add(i, card); //将卡牌ID与对应的卡牌GameObject对象存入字典
         }
     }
 
     //获取某玩家手牌,在判断对方是否有某手牌时会用到
     private List<int> GetPlayerCards(int playerNum) {
         return _PlayerCards[playerNum]; 
+    }
+
+    private bool ifPlayerHaveCards(int playerNum, string cardName)
+    {
+        return false; //TODO
     }
 
     //洗牌
