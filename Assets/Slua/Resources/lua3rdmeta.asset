@@ -8,7 +8,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b51a3b5f40c08405ca2dfb572d3558c0, type: 3}
+  m_Script: {fileID: 0}
   m_Name: lua3rdmeta
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assembly-CSharp-firstpass:SLua:Lua3rdMeta
   typesWithAttribtues: []

@@ -3,10 +3,9 @@ using System.Collections;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
-using SLua;
 using System.IO;
 
-[Serializable][CustomLuaClass]
+[Serializable]
 public class Card : MonoBehaviour
 {
     //是一个Unity中的游戏对象类
@@ -14,13 +13,9 @@ public class Card : MonoBehaviour
     public CardInfo cardInfo;  //卡牌信息
     private TextAsset description; //卡牌描述
     private Text textBox; //Debug
-    private LuaSvr l;
-    private LuaState luaState;//设置Lua状态机对象
-    private LuaFunction luaFunction;
 
     private CanvasRenderer imageRenderer;
 
-    GameObject go;
     private Transform self;
 
 
@@ -29,7 +24,6 @@ public class Card : MonoBehaviour
 
         self = transform.Find("Face");
         faceImage = self.GetComponent<Image>();
-        luaState = new LuaState();
 
     }
 
@@ -47,8 +41,9 @@ public class Card : MonoBehaviour
         this.cardInfo = cardInfo;
         cardInfo.cardID = cardId;
         InitImage();
-        InitCardSkill();
         InitDescription();
+        //InitCardSkill();
+
     }
 
     #region InitCard()所需函数
@@ -65,7 +60,7 @@ public class Card : MonoBehaviour
         Debug.Log(description.text);
     }
 
-    private void InitCardSkill() //初始化卡牌技能,根据卡牌名称读取相应Lua文件
+    /*private void InitCardSkill() //初始化卡牌技能,根据卡牌名称读取相应Lua文件
     {
         //        （1）首先要在Lua虚拟机中加载该函数（LuaState.DoFile）
         //
@@ -85,7 +80,7 @@ public class Card : MonoBehaviour
         });
         luaState.doFile(String.Format("{0}.lua", cardInfo.cardName));
         //TODO
-    }
+    }*/
     #endregion
 //    public void ExecuteCardSkill(int toPlayerNum) //执行卡牌技能
 //    {
@@ -107,12 +102,11 @@ public class Card : MonoBehaviour
     //玩家鼠标移到卡牌上
     public void OnMouseEnter()
     {
-        var trans = go.transform;
         if (!DOTween.IsTweening(transform))
         {
 
-            transform.DOMoveY(trans.position.y + 100f, 0.01f);
-            transform.DOScale(new Vector3(1f, 1f, 1f), 0.01f);
+            transform.DOMoveY(transform.position.y + 100f, 1f);
+            //transform.DOScale(new Vector3(1f, 1f, 1f), 0.01f);
         }
         Debug.Log("OnMouseEnter");
     }
@@ -120,11 +114,10 @@ public class Card : MonoBehaviour
     //玩家鼠标离开卡牌
     public void OnMouseExit() 
     {
-        var trans = go.transform;
         if (!DOTween.IsTweening(transform))
         {
-            transform.DOMoveY(trans.position.y, 0.01f);
-            transform.DOScale(new Vector3(0.3f, 0.3f, 0.3f), 0.01f);
+            transform.DOMoveY(transform.position.y - 100f, 1f);
+            //transform.DOScale(new Vector3(0.3f, 0.3f, 0.3f), 0.01f);
         }
         Debug.Log("OnMouseExit");
     }

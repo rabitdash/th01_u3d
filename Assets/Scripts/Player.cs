@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
-using SLua;
-[Serializable][CustomLuaClass]
+
+[Serializable]
 public class Player
 {
     public List<string> heldCards; //个人所持卡牌

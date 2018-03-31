@@ -5,9 +5,8 @@ using System.Deployment.Internal;
 using System.IO;
 using System.Linq;
 using UnityEngine;
-using SLua;
 
-[CustomLuaClass][Serializable] //可序列化 可被Lua脚本调用
+[Serializable] //可序列化
 public class CardManager : MonoBehaviour {
     #region 变量定义
     public static CardManager _instance;//单例
