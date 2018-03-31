@@ -283,7 +283,6 @@
     <Compile Include="Assets\Scripts\Move.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\Scripts\startButton.cs" />
-    <Compile Include="Assets\Scripts\UIController.cs" />
     <Compile Include="Assets\Slua\example\Circle.cs" />
     <Compile Include="Assets\Slua\example\Custom.cs" />
     <Compile Include="Assets\Slua\example\Deleg.cs" />
@@ -298,6 +297,9 @@
     <Compile Include="Assets\Slua\example\VarObj.cs" />
     <Compile Include="Assets\Slua\LuaObject\Custom\BindCustom.cs" />
     <Compile Include="Assets\Slua\LuaObject\Custom\Lua_AbsClass.cs" />
+    <Compile Include="Assets\Slua\LuaObject\Custom\Lua_BattleController.cs" />
+    <Compile Include="Assets\Slua\LuaObject\Custom\Lua_Card.cs" />
+    <Compile Include="Assets\Slua\LuaObject\Custom\Lua_CardManager.cs" />
     <Compile Include="Assets\Slua\LuaObject\Custom\Lua_Custom.cs" />
     <Compile Include="Assets\Slua\LuaObject\Custom\Lua_Custom_IFoo.cs" />
     <Compile Include="Assets\Slua\LuaObject\Custom\Lua_Deleg.cs" />
@@ -306,6 +308,7 @@
     <Compile Include="Assets\Slua\LuaObject\Custom\Lua_HelloWorld.cs" />
     <Compile Include="Assets\Slua\LuaObject\Custom\Lua_ListViewEvent.cs" />
     <Compile Include="Assets\Slua\LuaObject\Custom\Lua_NewCoroutine.cs" />
+    <Compile Include="Assets\Slua\LuaObject\Custom\Lua_Player.cs" />
     <Compile Include="Assets\Slua\LuaObject\Custom\Lua_SLuaTest.cs" />
     <Compile Include="Assets\Slua\LuaObject\Custom\Lua_System_Collections_Generic_Dictionary_2_int_string.cs" />
     <Compile Include="Assets\Slua\LuaObject\Custom\Lua_System_Collections_Generic_List_1_int.cs" />
@@ -1002,6 +1005,7 @@
     <Compile Include="Assets\Slua\LuaObject\Unity\LuaUnityEvent_UnityEngine_Vector2.cs" />
     <Compile Include="Assets\Slua\Source\LuaThreadWrapper.cs" />
     <Compile Include="Assets\Slua\Source\UnityExtension.cs" />
+    <Compile Include="Assets\UIController.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Demigiant\DOTween\DOTween.XML" />

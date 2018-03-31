@@ -1,8 +1,10 @@
 ﻿<Properties StartupItem="th01_u3d.Plugins.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Card\Card.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Slua\example\test\README.md">
     <Files>
-      <File FileName="Assets\Scripts\Card\Card.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Card\Card.cs" Line="34" Column="1" />
+      <File FileName="Assets\Plugins\Slua_Managed\LuaState.cs" Line="1" Column="1" />
+      <File FileName="Assets\Slua\example\test\README.md" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

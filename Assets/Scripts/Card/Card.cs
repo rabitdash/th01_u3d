@@ -4,6 +4,7 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 using SLua;
+using System.IO;
 
 [Serializable][CustomLuaClass]
 public class Card : MonoBehaviour
@@ -12,25 +13,30 @@ public class Card : MonoBehaviour
     private Image faceImage;        //牌的图片
     public CardInfo cardInfo;  //卡牌信息
     private TextAsset description; //卡牌描述
-    private Text textBox;
+    private Text textBox; //Debug
+    private LuaSvr l;
+    private LuaState luaState;//设置Lua状态机对象
+    private LuaFunction luaFunction;
 
     private CanvasRenderer imageRenderer;
 
     GameObject go;
     private Transform self;
 
+
     void Awake()
     {
 
         self = transform.Find("Face");
         faceImage = self.GetComponent<Image>();
-        StartCoroutine(Timer());
-
-        imageRenderer = self.GetComponent<CanvasRenderer>();
-        imageRenderer.SetAlpha(1f);
+        luaState = new LuaState();
 
     }
 
+    void Start()
+    {
+//        ExecuteCardSkill(2);
+    }
     void Update()
     {
     }
@@ -44,6 +50,7 @@ public class Card : MonoBehaviour
         InitCardSkill();
         InitDescription();
     }
+
     #region InitCard()所需函数
     private void InitImage()
     {
@@ -58,16 +65,33 @@ public class Card : MonoBehaviour
         Debug.Log(description.text);
     }
 
-    private void InitCardSkill() //初始化卡牌技能
+    private void InitCardSkill() //初始化卡牌技能,根据卡牌名称读取相应Lua文件
     {
+        //        （1）首先要在Lua虚拟机中加载该函数（LuaState.DoFile）
+        //
+        //        （2）拿到目标函数（LuaState.GetFunction）
+        //
+        //        （3）执行目标函数（LuaFunction.Call）
+        luaState.loaderDelegate = ((string fn) =>
+        {
 
+            //获取脚本启动代理
+            string file_path = Directory.GetCurrentDirectory() + "/Assets/Resources/Cards/Skills/" + fn;
+
+            Debug.Log("file_path:" + file_path);
+
+            return File.ReadAllBytes(file_path);
+
+        });
+        luaState.doFile(String.Format("{0}.lua", cardInfo.cardName));
         //TODO
     }
     #endregion
-    public void ExecuteCardSkill(int toPlayerNum) //执行卡牌技能
-    {
-        //TODO
-    }
+//    public void ExecuteCardSkill(int toPlayerNum) //执行卡牌技能
+//    {
+//        LuaTable luaCardSkill = luaState.getFunction("CardSkill").call(cardInfo.playerNum,toPlayerNum);
+//        
+//    }
 
     IEnumerator Timer() //Debug
     {

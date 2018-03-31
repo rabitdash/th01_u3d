@@ -5,6 +5,10 @@ namespace SLua {
 	public class BindCustom {
 		public static Action<IntPtr>[] GetBindList() {
 			Action<IntPtr>[] list= {
+				Lua_BattleController.reg,
+				Lua_Card.reg,
+				Lua_CardManager.reg,
+				Lua_Player.reg,
 				Lua_Custom.reg,
 				Lua_Custom_IFoo.reg,
 				Lua_Deleg.reg,

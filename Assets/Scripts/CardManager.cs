@@ -69,7 +69,7 @@ public class CardManager : MonoBehaviour {
     }
 
     //洗牌
-    public void ShuffleCards()
+    private void ShuffleCards()
     {
 
     }

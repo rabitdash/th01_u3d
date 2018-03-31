@@ -15,4 +15,4 @@ MonoBehaviour:
   exportExtensionMethod: 1
   UnityEngineGeneratePath: Assets/Slua/LuaObject/
   PrintTrace: 1
-  jitType: 0
+  jitType: 2

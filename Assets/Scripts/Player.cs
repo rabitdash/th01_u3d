@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
-
-[Serializable]
+using SLua;
+[Serializable][CustomLuaClass]
 public class Player
 {
     public List<string> heldCards; //个人所持卡牌
@@ -25,16 +25,17 @@ public class Player
 
     }
     /// <summary>
-    /// 增加一张卡牌
+    /// 增加卡牌
     /// </summary>
     /// <param name="cardName"></param>
-    public void AddCard(string cardName)
+    public void AddCards(List<string> cardName)
     {
+
     }
     /// <summary>
-    /// 清空所有卡片
+    /// 将卡牌移入弃牌堆
     /// </summary>
-    public void DropCards()
+    public void DropCards(List<string> cardName)
     {
     }
 }
