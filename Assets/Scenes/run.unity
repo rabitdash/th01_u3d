@@ -400,7 +400,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65d24e0a737d05944a3f97d4c9498957, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardPrefab: {fileID: 1749980829323324, guid: 5284aafda882e8d4a89e890d36d6761a, type: 2}
+  CardPrefab: {fileID: 1749980829323324, guid: 5284aafda882e8d4a89e890d36d6761a, type: 2}
   publicCardHeap: {fileID: 855482831}
   publicDropHeap: {fileID: 1956051966}
   nplayer: 3
@@ -619,7 +619,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: -175, y: -160}
-  m_SizeDelta: {x: 860, y: 170}
+  m_SizeDelta: {x: 860, y: 200}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &344116712
 MonoBehaviour:

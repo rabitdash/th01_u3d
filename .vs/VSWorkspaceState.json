@@ -2,10 +2,9 @@
   "ExpandedNodes": [
     "",
     "\\Assets",
-    "\\Assets\\Resources\\Cards",
     "\\Assets\\Scripts",
     "\\Assets\\Scripts\\Card"
   ],
-  "SelectedNode": "\\Assets\\Scripts\\Card\\Card.cs",
+  "SelectedNode": "\\ClassDiagram.cd",
   "PreviewInSolutionExplorer": false
 }
