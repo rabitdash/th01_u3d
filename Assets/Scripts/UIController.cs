@@ -15,9 +15,6 @@ public class UIController : MonoBehaviour {
     public Button logoutButton;
     public Button startButton;
 
-    private bool isConfirm;
-    private bool isCancel;
-
     #endregion
 
     // Use this for initialization
