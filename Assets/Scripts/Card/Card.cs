@@ -4,7 +4,6 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
-using NUnit.Framework;
 
 [Serializable]
 public class Card : MonoBehaviour

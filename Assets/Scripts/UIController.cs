@@ -30,6 +30,10 @@ public class UIController : MonoBehaviour {
         {
             Debug.Log("confirmButtonClicked!");
         });
+        logoutButton.onClick.AddListener(delegate
+        {
+            Application.Quit(); //考虑到网络游戏，这边不能这么写
+        });
 
         #endregion
     }
