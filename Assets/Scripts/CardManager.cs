@@ -141,7 +141,7 @@ public class CardManager : MonoBehaviour {
     public bool AddCardTo(int playerID, string cardName = "") //注意不要用超了，每次发牌时要检查摸牌堆里是否有牌，还要检查玩家的牌堆是否用超，超了要弃卡
     {
         //TODO 超出数量限制，弃卡
-
+        //TODO 将动画分离，函数ShowCard()
         if (DrawCardIDs.Count == 0)
         {
             Debug.Log("DrawCardHeap is empty");
