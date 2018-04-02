@@ -32,6 +32,7 @@ public class CardInfo : IComparable
         this.isSelected = false;
         this._cardFileName = cardFileName;
         this.cardName = splits[0];//获取卡牌名称
+        Debug.Log(String.Format("CardName:{0}", cardName));
         cardIndex = Convert.ToInt32(splits[2]); //获取卡牌索引
 
         switch (splits[1])

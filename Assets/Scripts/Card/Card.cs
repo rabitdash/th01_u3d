@@ -42,14 +42,14 @@ public class Card : MonoBehaviour
         this.cardInfo = cardInfo;
         cardInfo.cardID = cardId;
         InitImage();
-        _self = GameObject.Find(String.Format("Card{0}/Face", cardId));
+        _self = GameObject.Find(String.Format("Card{0}/Face", cardId)); //TODO 修改_self名
         //InitDescription();
         //InitCardSkill();
 
     }
 
     #region InitCard()所需函数
-    private void InitImage()
+    private void InitImage() //读取图像
     {
         Debug.Log(cardInfo._cardFileName); //Debug
         var tmp = Resources.Load("Cards/Images/" + cardInfo._cardFileName, typeof(Sprite)) as Sprite; 

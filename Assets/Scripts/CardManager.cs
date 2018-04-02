@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
+using System.Linq;
+using System.Security.Cryptography;
+using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
 using UnityEngine.SocialPlatforms;
 using Random = System.Random;
@@ -16,8 +20,6 @@ public class CardManager : MonoBehaviour {
     private List<int> allCardIDs = new List<int>(); //卡牌ID列表
     private List<int> DrawCardIDs = new List<int>();
     private List<int> DropCardIDs = new List<int>();
-
-    private Random randomInt;
     //TODO 摸牌堆卡ID列表
     //TODO 弃牌堆卡ID列表
     //TODO 所有卡ID列表
@@ -64,10 +66,9 @@ public class CardManager : MonoBehaviour {
 
         for (var i = 0; i < allCardInfos.Count; i++)
         {
-            DrawCardIDs.Add(i);//摸牌堆
-            allCardIDs.Add(i);//所有牌
+            DrawCardIDs.Add(i); //摸牌堆
+            allCardIDs.Add(i); //所有牌
             IdOfCardName.Add(key: i, value: allCardInfos[i].cardName); //将卡牌ID与对应的卡牌名存入字典
-            i++;
         }
     }
 
@@ -77,9 +78,10 @@ public class CardManager : MonoBehaviour {
             var card = Instantiate(CardPrefab, allPlayersTransform[playerID]);//复制构造Card对象,位置在Player
             card.GetComponent<Card>().InitCard(allCardInfos[cardID], cardID); //每张卡都有专属ID和CardInfo，利用(1)中生成的CardInfo对象生成Card对象的属性
             _cardIdDictionary.Add(cardID, card); //将卡牌ID与对应的卡牌GameObject对象存入字典
-            card.name = string.Format("Card{0}", cardID);
+            card.name = string.Format("Card{0}", cardID); //GameObject对象名称
             card.transform.localPosition = new Vector2(0f, 0f);
             card.GetComponent<RectTransform>().sizeDelta = new Vector2(50f, 75f);
+            Debug.Log(String.Format("Generate Player{0} Card{1}", playerID, cardID));
     }
 
     //获取某玩家手牌,在判断对方是否有某手牌时会用到
@@ -103,20 +105,54 @@ public class CardManager : MonoBehaviour {
         return false; //TODO
     }
 
+    private void ShuffleCards()//对摸牌堆洗牌
+    {
+        DrawCardIDs = GetRandomList<int>(DrawCardIDs);
+    }
+    
+    //获取随机列表
+    private static List<T> GetRandomList<T>(List<T> inputList)
+    {
+        //Copy to a array
+        T[] copyArray = new T[inputList.Count];
+        inputList.CopyTo(copyArray);
+
+        //Add range
+        List<T> copyList = new List<T>();
+        copyList.AddRange(copyArray);
+
+        //Set outputList and random
+        List<T> outputList = new List<T>();
+        Random rd = new Random(DateTime.Now.Millisecond);
+
+        while (copyList.Count > 0)
+        {
+            //Select an index and item
+            int rdIndex = rd.Next(0, copyList.Count - 1);
+            T remove = copyList[rdIndex];
+
+            //remove it from copyList and add it to output
+            copyList.Remove(remove);
+            outputList.Add(remove);
+        }
+        return outputList;
+    }
     //将某手牌移至玩家的手牌堆 TODO debug
     public bool AddCardTo(int playerID, string cardName = "") //注意不要用超了，每次发牌时要检查摸牌堆里是否有牌
     {
         if (DrawCardIDs.Count == 0)
         {
+            Debug.Log("DrawCardHeap is empty");
             return false; //摸牌堆里没有卡，直接返回
         }
+
         if (cardName == "") //未指定卡名则随机生成
         {
-            var randInt = randomInt.Next(0, DrawCardIDs.Count);
-            var cardID = DrawCardIDs[randInt];
+            var cardID = DrawCardIDs[0];
             GenerateCardObject(playerID, cardID);
             DrawCardIDs.Remove(cardID);
             GetPlayerCards(playerNum:playerID).Add(cardID);
+            Debug.Log(String.Format("Randomly add Card {0}", IdOfCardName[cardID]));
             return true;
         }
         else
@@ -129,12 +165,11 @@ public class CardManager : MonoBehaviour {
                     GenerateCardObject(playerID, cardID);
                     DrawCardIDs.Remove(cardID); //这里是移除元素
                     GetPlayerCards(playerID).Add(cardID);
-                    Debug.Log("shit!");
+                    Debug.Log(String.Format("Specific add Card {0}", IdOfCardName[cardID]));
                     return true; //增加卡牌
                 }
             }
         }
-
         return false;
 
 
@@ -145,10 +180,10 @@ public class CardManager : MonoBehaviour {
 
     // Use this for initialization
     private void Awake () {
-        randomInt = new Random();
         _instance = this; //单例
         InitAllPlayers();
         InitAllCardInfos();
+        ShuffleCards();
         test();
 
     }
@@ -156,14 +191,24 @@ public class CardManager : MonoBehaviour {
     //功能测试
     private void test()
     {
-        //AddCardTo(0, "Card");
-        //AddCardTo(0, "Card");
-        //AddCardTo(0);
-        //AddCardTo(0);
-        AddCardTo(1, "八卦炉");
-        AddCardTo(1, "shiliuyexiaoye");
-        AddCardTo(1, "remiliyasikaleite");
-        //ifPlayerHaveCard(0, "Card");
+        Debug.Log("---");
+        Debug.Log("---");
+        Debug.Log("---"); 
+        Debug.Log(DrawCardIDs.Count);
+        foreach (var cardID in DrawCardIDs)
+        {
+            Debug.Log(IdOfCardName[cardID]);
+        }
+        AddCardTo(0);
+        AddCardTo(0);
+        AddCardTo(1);
+        AddCardTo(1);
+        AddCardTo(0, "shiliuyexiaoye");
+        AddCardTo(0, "八卦炉");
+        AddCardTo(1, "帕秋莉");
+        AddCardTo(1, "remiliya");
+        ifPlayerHaveCard(0, "Card");
+        ifPlayerHaveCard(1, "八卦炉");
     }
 	// Update is called once per frame
     private void Update () {
