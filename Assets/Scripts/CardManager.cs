@@ -16,7 +16,8 @@ public class CardManager : MonoBehaviour {
     private List<int> allCardIDs = new List<int>(); //卡牌ID列表
     private List<int> DrawCardIDs = new List<int>();
     private List<int> DropCardIDs = new List<int>();
-    Random randomInt = new Random();
+
+    private Random randomInt;
     //TODO 摸牌堆卡ID列表
     //TODO 弃牌堆卡ID列表
     //TODO 所有卡ID列表
@@ -28,12 +29,15 @@ public class CardManager : MonoBehaviour {
     #endregion
 
     //生成玩家数组
-    private void InitAllPlayersTransform()
+    private void InitAllPlayers()
     {
+        //Init all players transform
         for (var i = 0; i < nplayer; i++)
         {
             allPlayersTransform.Add(GameObject.Find(String.Format("Canvas/Players/Player{0}/cardArea", i)).GetComponent<Transform>());//查找所有玩家位置
+            _PlayerCards.Add(i, new List<int>());//初始化字典
         }
+
     }
 
     //生成CardInfo对象数组
@@ -67,17 +71,12 @@ public class CardManager : MonoBehaviour {
         }
     }
 
- 
-           
-
-
     //生成卡牌GameObject对象
     private void GenerateCardObject(int playerID, int cardID)//TODO IEnumrator 根据卡牌类型确定生成位置
     {
             var card = Instantiate(CardPrefab, allPlayersTransform[playerID]);//复制构造Card对象,位置在Player
             card.GetComponent<Card>().InitCard(allCardInfos[cardID], cardID); //每张卡都有专属ID和CardInfo，利用(1)中生成的CardInfo对象生成Card对象的属性
             _cardIdDictionary.Add(cardID, card); //将卡牌ID与对应的卡牌GameObject对象存入字典
-
             card.name = string.Format("Card{0}", cardID);
             card.transform.localPosition = new Vector2(0f, 0f);
             card.GetComponent<RectTransform>().sizeDelta = new Vector2(50f, 75f);
@@ -89,27 +88,36 @@ public class CardManager : MonoBehaviour {
     }
 
     //获取某玩家是否有某个手牌
-    private bool ifPlayerHaveCard(int playerNum, string cardName) //
+    private bool ifPlayerHaveCard(int playerID, string cardName) //
     {
-        var tmpCardIDs = GetPlayerCards(playerNum);
+        var tmpCardIDs = GetPlayerCards(playerID);
         foreach (var cardID in tmpCardIDs)
         {
             if (IdOfCardName[cardID] == cardName) //如果在ID对应卡牌名的字典中找到
             {
-                return true;
+                Debug.Log(String.Format("Player{0} have Card ID={1}", playerID, cardID));
+                return true;//有,不管有多少张
             }
         }
 
         return false; //TODO
     }
 
-    public void AddCardTo(int playerID, string cardName = "")
+    //将某手牌移至玩家的手牌堆 TODO debug
+    public bool AddCardTo(int playerID, string cardName = "") //注意不要用超了，每次发牌时要检查摸牌堆里是否有牌
     {
+        if (DrawCardIDs.Count == 0)
+        {
+            return false; //摸牌堆里没有卡，直接返回
+        }
         if (cardName == "") //未指定卡名则随机生成
         {
             var randInt = randomInt.Next(0, DrawCardIDs.Count);
-            GenerateCardObject(playerID, cardID:DrawCardIDs[randInt]);
-            DrawCardIDs.Remove(randInt);
+            var cardID = DrawCardIDs[randInt];
+            GenerateCardObject(playerID, cardID);
+            DrawCardIDs.Remove(cardID);
+            GetPlayerCards(playerNum:playerID).Add(cardID);
+            return true;
         }
         else
         {
@@ -120,12 +128,15 @@ public class CardManager : MonoBehaviour {
                 {
                     GenerateCardObject(playerID, cardID);
                     DrawCardIDs.Remove(cardID); //这里是移除元素
+                    GetPlayerCards(playerID).Add(cardID);
                     Debug.Log("shit!");
-                    break;
-
+                    return true; //增加卡牌
                 }
             }
         }
+
+        return false;
+
 
         //TODO 改为IEnumerator 调用GenerateCardObjects
     }
@@ -134,15 +145,26 @@ public class CardManager : MonoBehaviour {
 
     // Use this for initialization
     private void Awake () {
+        randomInt = new Random();
         _instance = this; //单例
-        InitAllPlayersTransform();
+        InitAllPlayers();
         InitAllCardInfos();
-        AddCardTo(0, "Card");
-        AddCardTo(0, "Card");
-        AddCardTo(0);
-        AddCardTo(0);
+        test();
+
     }
-	
+
+    //功能测试
+    private void test()
+    {
+        //AddCardTo(0, "Card");
+        //AddCardTo(0, "Card");
+        //AddCardTo(0);
+        //AddCardTo(0);
+        AddCardTo(1, "八卦炉");
+        AddCardTo(1, "shiliuyexiaoye");
+        AddCardTo(1, "remiliyasikaleite");
+        //ifPlayerHaveCard(0, "Card");
+    }
 	// Update is called once per frame
     private void Update () {
 		
