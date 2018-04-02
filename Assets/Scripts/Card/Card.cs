@@ -9,21 +9,22 @@ using System.IO;
 public class Card : MonoBehaviour
 {
     //是一个Unity中的游戏对象类
-    private Image faceImage;        //牌的图片
+    private Image faceImage;        //卡面图片
+    //private Image coverImage; 
     public CardInfo cardInfo;  //卡牌信息
     private TextAsset description; //卡牌描述
     private Text textBox; //Debug
 
-    private CanvasRenderer imageRenderer;
 
-    private Transform self;
+    private GameObject _self;
 
 
     void Awake()
     {
 
-        self = transform.Find("Face");
-        faceImage = self.GetComponent<Image>();
+        faceImage = transform.Find("Face").GetComponent<Image>();
+        //coverImage = transform.Find("Cover").GetComponent<Image>();
+
 
     }
 
@@ -41,22 +42,42 @@ public class Card : MonoBehaviour
         this.cardInfo = cardInfo;
         cardInfo.cardID = cardId;
         InitImage();
-        InitDescription();
+        _self = GameObject.Find(String.Format("Card{0}/Face", cardId)); //TODO 修改_self名
+        //InitDescription();
         //InitCardSkill();
 
     }
 
     #region InitCard()所需函数
-    private void InitImage()
+    private void InitImage() //读取图像
     {
-        Debug.Log(cardInfo._cardFileName);
-        faceImage.sprite = Resources.Load("Cards/Images/" + cardInfo._cardFileName, typeof(Sprite)) as Sprite;
-        
+        Debug.Log(cardInfo._cardFileName); //Debug
+        var tmp = Resources.Load("Cards/Images/" + cardInfo._cardFileName, typeof(Sprite)) as Sprite; 
+        //TODO 读取卡背文件(如果不同类型的卡牌卡背不一样的话s
+        if (tmp != null)
+        {
+            faceImage.sprite = tmp;
+        }
+        else
+        {
+            //TODO 错误捕捉
+        }
+
+
     }
 
     private void InitDescription()//TODO
     {
-        description = Resources.Load("Cards/Descriptions/" + cardInfo._cardFileName, typeof(TextAsset)) as TextAsset;
+        var tmp = Resources.Load("Cards/Descriptions/" + cardInfo._cardFileName, typeof(TextAsset)) as TextAsset;
+        if (tmp != null)
+        {
+            description = tmp;
+        }
+        else
+        {
+            //TODO 错误捕捉
+        }
+
         Debug.Log(description.text);
     }
 
@@ -125,6 +146,8 @@ public class Card : MonoBehaviour
     public void OnMouseDown()
     {
         this.cardInfo.isSelected = !this.cardInfo.isSelected;//卡牌初始化时默认isSelected=false
+        _self.SetActive(!this.cardInfo.isCovered);
+        this.cardInfo.isCovered = !this.cardInfo.isCovered;
 
     }
     #endregion

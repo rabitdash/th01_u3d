@@ -11,11 +11,11 @@ public class Player
     public List<string> heldCards; //个人所持卡牌
     public bool isMyTurn; //是否轮到玩家出牌
     public bool isTimeUp; //玩家是否超时
-    public int myNum; //玩家编号
+    public int ID; //玩家编号
 
-    public Player(int myNum, List<string> heldCards) //初始化构造函数，一开始时调用
+    public Player(int id, List<string> heldCards) //初始化构造函数，一开始时调用
     {
-        this.myNum = myNum;
+        this.ID = id;
         this.heldCards = heldCards;
     }
 
@@ -28,14 +28,16 @@ public class Player
     /// 增加卡牌
     /// </summary>
     /// <param name="cardName"></param>
-    public void AddCards(List<string> cardName)
+    public void AddCard(List<string> cardName)
     {
-
+        //TODO
     }
     /// <summary>
     /// 将卡牌移入弃牌堆
     /// </summary>
-    public void DropCards(List<string> cardName)
+    public void DropCard(List<string> cardName)
     {
+        //TODO
     }
+
 }

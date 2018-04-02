@@ -15,9 +15,6 @@ public class UIController : MonoBehaviour {
     public Button logoutButton;
     public Button startButton;
 
-    private bool isConfirm;
-    private bool isCancel;
-
     #endregion
 
     // Use this for initialization
@@ -28,7 +25,11 @@ public class UIController : MonoBehaviour {
         #region 按钮事件监听
         confirmButton.onClick.AddListener(delegate
         {
-            Debug.Log("dealButtonClicked!");
+            Debug.Log("confirmButtonClicked!");
+        });
+        logoutButton.onClick.AddListener(delegate
+        {
+            Application.Quit(); //考虑到网络游戏，这边不能这么写
         });
 
         #endregion
