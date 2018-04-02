@@ -28,14 +28,14 @@ public class Player
     /// 增加卡牌
     /// </summary>
     /// <param name="cardName"></param>
-    public void AddCards(List<string> cardName)
+    public void AddCard(List<string> cardName)
     {
         //TODO
     }
     /// <summary>
     /// 将卡牌移入弃牌堆
     /// </summary>
-    public void DropCards(List<string> cardName)
+    public void DropCard(List<string> cardName)
     {
         //TODO
     }

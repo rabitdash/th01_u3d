@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Net.Mime;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
+using DG.Tweening;
+using Sirenix.Utilities.Editor;
 using UnityEngine;
-using UnityEngine.SocialPlatforms;
+using UnityEngine.UI;
 using Random = System.Random;
 
 [Serializable] //可序列化
@@ -16,7 +19,7 @@ public class CardManager : MonoBehaviour {
     public GameObject CardPrefab; //卡牌预制件
     public GameObject publicCardHeap; //出牌堆位置
     public GameObject publicDropHeap;//弃牌堆位置
-    public int nplayer; //参与游戏的玩家数量
+    const int nplayer = 4; //参与游戏的玩家数量
     private List<int> allCardIDs = new List<int>(); //卡牌ID列表
     private List<int> DrawCardIDs = new List<int>();
     private List<int> DropCardIDs = new List<int>();
@@ -73,17 +76,46 @@ public class CardManager : MonoBehaviour {
     }
 
     //生成卡牌GameObject对象
-    private void GenerateCardObject(int playerID, int cardID)//TODO IEnumrator 根据卡牌类型确定生成位置
+    private void GenerateCardObject(int playerID, int cardID)//TODO 根据卡牌类型确定生成位置和大小
     {
             var card = Instantiate(CardPrefab, allPlayersTransform[playerID]);//复制构造Card对象,位置在Player
             card.GetComponent<Card>().InitCard(allCardInfos[cardID], cardID); //每张卡都有专属ID和CardInfo，利用(1)中生成的CardInfo对象生成Card对象的属性
             _cardIdDictionary.Add(cardID, card); //将卡牌ID与对应的卡牌GameObject对象存入字典
             card.name = string.Format("Card{0}", cardID); //GameObject对象名称
-            card.transform.localPosition = new Vector2(0f, 0f);
-            card.GetComponent<RectTransform>().sizeDelta = new Vector2(50f, 75f);
+        var playerCardNum = _PlayerCards[playerID].Count; //现在玩家拥有的卡牌数量
+        switch (playerID) //TODO
+        {
+            case 0:
+                var cardSize = new Vector2(100f, 150f);//卡牌大小
+                var cardInterval = 20;//卡牌相对位置差
+                Debug.Log(_PlayerCards[playerID].Count);
+                
+                //设置大小
+                var Images = card.GetComponentsInChildren<RectTransform>();
+                foreach (var image in Images)
+                {
+                    image.sizeDelta = cardSize;
+                }
+                card.GetComponent<RectTransform>().sizeDelta = cardSize;
+                card.transform.localPosition= new Vector3(30f, -10f, 0f);
+                var offset = card.transform.position - card.transform.localPosition;//计算本地坐标与世界坐标系之差
+                card.transform.DOMove(new Vector3(30f + cardInterval * _PlayerCards[playerID].Count, -10f, 0f) + offset, 1f);//TODO 根据卡牌类型决定生成位置
+                break;
+            case 1:
+                break;
+            case 2:
+                break;
+        }
             Debug.Log(String.Format("Generate Player{0} Card{1}", playerID, cardID));
     }
 
+    //删除卡牌GameObject对象
+    private void DestroyCardObject(int cardID)
+    {
+        GameObject.Destroy(_cardIdDictionary[cardID]);
+    }
+
+    #region Player类调用方法主体
     //获取某玩家手牌,在判断对方是否有某手牌时会用到
     private List<int> GetPlayerCards(int playerNum) {
         return _PlayerCards[playerNum]; 
@@ -102,8 +134,54 @@ public class CardManager : MonoBehaviour {
             }
         }
 
-        return false; //TODO
+        return false;
     }
+
+    //将某手牌从摸牌堆移至玩家的手牌堆
+    public bool AddCardTo(int playerID, string cardName = "") //注意不要用超了，每次发牌时要检查摸牌堆里是否有牌，还要检查玩家的牌堆是否用超，超了要弃卡
+    {
+        //TODO 超出数量限制，弃卡
+
+        if (DrawCardIDs.Count == 0)
+        {
+            Debug.Log("DrawCardHeap is empty");
+            return false; //摸牌堆里没有卡，直接返回
+        }
+
+        if (cardName == "") //未指定卡名则随机生成
+        {
+            var cardID = DrawCardIDs[0];
+            GenerateCardObject(playerID, cardID);
+            DrawCardIDs.Remove(cardID);
+            GetPlayerCards(playerNum: playerID).Add(cardID);
+            Debug.Log(String.Format("Randomly add Card {0}", IdOfCardName[cardID]));
+            return true;
+        }
+        else //已指定卡名
+        {
+
+            foreach (var cardID in DrawCardIDs)
+            {
+                if (IdOfCardName[cardID] == cardName) //如果在ID对应卡牌名的字典中找到
+                {
+                    GenerateCardObject(playerID, cardID);
+                    DrawCardIDs.Remove(cardID);
+                    GetPlayerCards(playerID).Add(cardID);
+                    Debug.Log(String.Format("Specific add Card {0}", IdOfCardName[cardID]));
+                    return true; //增加卡牌
+                }
+            }
+        }
+        return false;
+    }
+
+    public void DropCard(int playerID, int cardID)
+    {
+        DropCardIDs.Add(cardID);//弃牌堆加卡
+        _PlayerCards[playerID].Remove(cardID);//从玩家手中移除卡
+        DestroyCardObject(cardID);//去除卡牌对象
+    }
+    #endregion
 
     private void ShuffleCards()//对摸牌堆洗牌
     {
@@ -137,45 +215,7 @@ public class CardManager : MonoBehaviour {
         }
         return outputList;
     }
-    //将某手牌移至玩家的手牌堆 TODO debug
-    public bool AddCardTo(int playerID, string cardName = "") //注意不要用超了，每次发牌时要检查摸牌堆里是否有牌
-    {
-        if (DrawCardIDs.Count == 0)
-        {
-            Debug.Log("DrawCardHeap is empty");
-            return false; //摸牌堆里没有卡，直接返回
-        }
-
-        if (cardName == "") //未指定卡名则随机生成
-        {
-            var cardID = DrawCardIDs[0];
-            GenerateCardObject(playerID, cardID);
-            DrawCardIDs.Remove(cardID);
-            GetPlayerCards(playerNum:playerID).Add(cardID);
-            Debug.Log(String.Format("Randomly add Card {0}", IdOfCardName[cardID]));
-            return true;
-        }
-        else
-        {
-
-            foreach (var cardID in DrawCardIDs)
-            {
-                if (IdOfCardName[cardID] == cardName) //如果在ID对应卡牌名的字典中找到
-                {
-                    GenerateCardObject(playerID, cardID);
-                    DrawCardIDs.Remove(cardID); //这里是移除元素
-                    GetPlayerCards(playerID).Add(cardID);
-                    Debug.Log(String.Format("Specific add Card {0}", IdOfCardName[cardID]));
-                    return true; //增加卡牌
-                }
-            }
-        }
-        return false;
-
-
-        //TODO 改为IEnumerator 调用GenerateCardObjects
-    }
-
+ 
 
 
     // Use this for initialization

@@ -403,7 +403,6 @@ MonoBehaviour:
   CardPrefab: {fileID: 1749980829323324, guid: 5284aafda882e8d4a89e890d36d6761a, type: 2}
   publicCardHeap: {fileID: 855482831}
   publicDropHeap: {fileID: 1956051966}
-  nplayer: 3
 --- !u!1 &92697185
 GameObject:
   m_ObjectHideFlags: 0
