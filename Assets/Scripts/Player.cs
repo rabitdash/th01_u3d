@@ -10,8 +10,8 @@ public class Player
 {
     public List<string> heldCards; //个人所持卡牌
     public bool isMyTurn; //是否轮到玩家出牌
-    public bool isTimeUp; //玩家是否超时
     public int ID; //玩家编号
+    private CardManager instance;
 
     public Player(int id, List<string> heldCards) //初始化构造函数，一开始时调用
     {
@@ -19,7 +19,11 @@ public class Player
         this.heldCards = heldCards;
     }
 
-    public 
+    void Awake()
+    {
+        instance = CardManager._instance;
+    }
+
     void Start()
     {
 
@@ -28,16 +32,21 @@ public class Player
     /// 增加卡牌
     /// </summary>
     /// <param name="cardName"></param>
-    public void AddCard(List<string> cardName)
+    public void AddCard(string cardName = null)
     {
+        instance.AddCardTo(ID, cardName);
         //TODO
     }
     /// <summary>
     /// 将卡牌移入弃牌堆
     /// </summary>
-    public void DropCard(List<string> cardName)
+    public void DropCard(string cardName = null)
     {
         //TODO
     }
 
+    public void GiveCard(string cardName = null)
+    {
+
+    }
 }

@@ -588,7 +588,7 @@ MonoBehaviour:
   confirmButton: {fileID: 1359956025}
   cancelButton: {fileID: 391502577}
   logoutButton: {fileID: 430536857}
-  startButton: {fileID: 59655387}
+  startButton: {fileID: 1387732161}
 --- !u!1 &344116710
 GameObject:
   m_ObjectHideFlags: 0

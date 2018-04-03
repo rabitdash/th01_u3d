@@ -81,6 +81,17 @@ public class CardManager : MonoBehaviour {
     }
 
     //TODO 切换CardManager状态
+    private void SwitchState()
+    {
+        if (currentState == CardManagerState.Init)
+        {
+            currentState = CardManagerState.Run;
+        }
+        else if (currentState == CardManagerState.Run)
+        {
+            currentState = CardManagerState.Init;
+        }
+    }
     //生成卡牌GameObject对象
     private void GenerateCardObject(int playerID, int cardID)//TODO 根据卡牌类型确定生成位置和大小 isInit是否是开局摸牌
     {
@@ -90,56 +101,68 @@ public class CardManager : MonoBehaviour {
         card.name = string.Format("Card{0}", cardID); //GameObject对象名称
         var playerCardNum = _PlayerCards[playerID].Count; //现在玩家拥有的卡牌数量
         var offset = card.transform.position - card.transform.localPosition;//计算本地坐标与世界坐标系之差
+        int cardInterval;//卡牌相对位置差
+        Debug.Log(_PlayerCards[playerID].Count);
+
         switch (playerID) //TODO 根据卡牌类型决定生成位置
         {
             case 0:
-                var cardSize = new Vector2(100f, 150f);//卡牌大小
-                var cardInterval = 20;//卡牌相对位置差
-                Debug.Log(_PlayerCards[playerID].Count);
-                SetCardSize(card, cardSize);//设置卡牌大小
+
+                cardInterval = 20;
+                SetCardSize(card, cardSize:new Vector2(50f, 75f));//设置卡牌大小
                 if (currentState == CardManagerState.Init)//如果是开局发牌
                 {
                     card.transform.localPosition = new Vector3(30f, -10f, 0f); //设置卡牌位置
                     card.transform.DOLocalMove(new Vector3(30f + cardInterval * playerCardNum, -10f, 0f), 1f);
                 }
-                else if (currentState == CardManagerState.Run)
-                {
-                    RearrangePlayerCards(playerID);
-                }
-
                 break;
             case 1:
+                cardInterval = 20;
+                SetCardSize(card, cardSize:new Vector2(30f, 45f));
+                if (currentState == CardManagerState.Init)
+                {
+                    card.transform.localPosition = new Vector3();
+                }
                 break;
             case 2:
                 break;
         }
-            Debug.Log(String.Format("Generate Player{0} Card{1}", playerID, cardID));
+
+        if (currentState == CardManagerState.Run)
+        {
+            RearrangePlayerCards(playerID);
+        }
+            Debug.Log(String.Format("Generate Player:{0} Card:{1}", playerID, cardID));
     }
 
+    #region GenerateCardObject()调用子方法
     //重新安排卡牌
     public void RearrangePlayerCards(int playerID)
     {
         var cardInterval = 20;//TODO 间隔应间接计算
         var cardNum = _PlayerCards.Count;//当前卡牌数量
-        foreach (var cardID in _PlayerCards[playerID])
+        var i = 0;
+        foreach (var cardID in _PlayerCards[playerID]) //每张卡都要移动
         {
             var card = _cardIdDictionary[cardID];
             switch (playerID)
             {
                 case 0:
-                    card.transform.DOLocalMoveX(30f + cardInterval * cardNum, 1f);//TODO 不同的卡应放在不同位置
+                    card.transform.DOLocalMoveX(30f + cardInterval * i, 1f);//TODO 不同的卡应放在不同位置
                     break;
                 case 1:
+                    //card.transform.DOLocalMoveX();
                     break;
-                    //TODO
+                //TODO
             }
-            
+
+            i++;
+
         }
     }
-                
 
     //设置卡牌大小
-    private void SetCardSize(GameObject card, Vector2 cardSize) 
+    private void SetCardSize(GameObject card, Vector2 cardSize)
     {
         var Images = card.GetComponentsInChildren<RectTransform>();
         foreach (var image in Images)
@@ -148,6 +171,10 @@ public class CardManager : MonoBehaviour {
         }
         card.GetComponent<RectTransform>().sizeDelta = cardSize;
     }
+
+
+
+    #endregion
 
     //删除卡牌GameObject对象
     private void DestroyCardObject(int cardID)
@@ -162,7 +189,7 @@ public class CardManager : MonoBehaviour {
     }
 
     //获取某玩家是否有某个手牌
-    private bool ifPlayerHaveCard(int playerID, string cardName) //
+    private bool PlayerHaveCard(int playerID, string cardName) //
     {
         var tmpCardIDs = GetPlayerCards(playerID);
         foreach (var cardID in tmpCardIDs)
@@ -170,15 +197,14 @@ public class CardManager : MonoBehaviour {
             if (IdOfCardName[cardID] == cardName) //如果在ID对应卡牌名的字典中找到
             {
                 Debug.Log(String.Format("Player{0} have Card ID={1}", playerID, cardID));
-                return true;//有,不管有多少张
+                return true;//有,不返回有多少张
             }
         }
-
         return false;
     }
 
     //将某手牌从摸牌堆移至玩家的手牌堆
-    public bool AddCardTo(int playerID, string cardName = "") //注意不要用超了，每次发牌时要检查摸牌堆里是否有牌，还要检查玩家的牌堆是否用超，超了要弃卡
+    public bool AddCardTo(int playerID, string cardName = null) //注意不要用超了，每次发牌时要检查摸牌堆里是否有牌，还要检查玩家的牌堆是否用超，超了要弃卡
     {
         //TODO 超出数量限制，弃卡
         //TODO 将动画分离，函数ShowCard()
@@ -188,7 +214,7 @@ public class CardManager : MonoBehaviour {
             return false; //摸牌堆里没有卡，直接返回
         }
 
-        if (cardName == "") //未指定卡名则随机生成
+        if (cardName == null) //未指定卡名则随机生成
         {
             var cardID = DrawCardIDs[0];
             GenerateCardObject(playerID, cardID);
@@ -215,11 +241,53 @@ public class CardManager : MonoBehaviour {
         return false;
     }
 
-    public void DropCard(int playerID, int cardID)
+    public void DropCardFrom(int playerID, string cardName = null)
     {
-        DropCardIDs.Add(cardID);//弃牌堆加卡
-        _PlayerCards[playerID].Remove(cardID);//从玩家手中移除卡
-        DestroyCardObject(cardID);//去除卡牌对象
+        if (cardName == null)
+        {
+            var cardID = _PlayerCards[playerID][new Random(Time.time.GetHashCode()).Next(0, _PlayerCards[playerID].Count)];//TODO 随机
+            DropCardIDs.Add(cardID);
+            _PlayerCards[playerID].Remove(cardID);
+            DestroyCardObject(cardID);
+            _cardIdDictionary.Remove(cardID);
+            RearrangePlayerCards(playerID);
+        }
+        else
+        {
+            if (_PlayerCards[playerID].Count > 0)
+            {
+                foreach (var cardID in _PlayerCards[playerID])
+                {
+                    if (IdOfCardName[cardID] != cardName) continue;
+                    DropCardIDs.Add(cardID);//弃牌堆加卡
+                    _PlayerCards[playerID].Remove(cardID);//从玩家手中移除卡
+                    
+                    DestroyCardObject(cardID);//去除卡牌对象
+                    _cardIdDictionary.Remove(cardID);
+                    RearrangePlayerCards(0);//整理卡牌
+                    Debug.Log("Randomly drop Player{0}'s card");
+                    return;//结束
+                }
+            }
+
+            else
+            {
+                Debug.Log(String.Format("Player{0} has no card to drop", playerID));
+            }
+        }
+        
+    }
+
+    public void GiveCardTo(int fromPlayerID, int toPlayerID, int cardID = -1)//cardID需要特别获取,否则随机丢卡 TODO
+    {
+        if (cardID == -1)
+        {
+            cardID = _PlayerCards[fromPlayerID][new Random(Time.time.GetHashCode()).Next(0, _PlayerCards[fromPlayerID].Count)];//随机
+        }
+        _PlayerCards[fromPlayerID].Remove(cardID);
+        DestroyCardObject(0);
+        _PlayerCards[toPlayerID].Add(cardID);
+        GenerateCardObject(toPlayerID, cardID);
     }
     #endregion
 
@@ -255,8 +323,30 @@ public class CardManager : MonoBehaviour {
         }
         return outputList;
     }
- 
 
+    public void NewTurn()//TODO 需要再修改
+    {
+        for (var playerID = 0; playerID < nplayer; playerID++ )
+        {
+                foreach (var cardID in _PlayerCards[playerID])
+                {
+                    DestroyCardObject(cardID);
+                }
+            _PlayerCards[playerID].Clear();
+        }
+        allPlayersTransform.Clear();
+        DrawCardIDs.Clear();
+        DropCardIDs.Clear();
+        _PlayerCards.Clear();
+        allCardInfos.Clear();
+        _cardIdDictionary.Clear();
+        allCardIDs.Clear();
+        IdOfCardName.Clear();
+        InitAllPlayers();
+        InitAllCardInfos();
+        ShuffleCards();
+        //currentState = CardManagerState.Run;
+    }
 
     // Use this for initialization
     private void Awake () {
@@ -291,8 +381,8 @@ public class CardManager : MonoBehaviour {
         AddCardTo(0, "八卦炉");
         AddCardTo(1, "帕秋莉");
         AddCardTo(1, "remiliya");
-        ifPlayerHaveCard(0, "Card");
-        ifPlayerHaveCard(1, "八卦炉");
+        PlayerHaveCard(0, "Card");
+        PlayerHaveCard(1, "八卦炉");
         AddCardTo(0);
     }
 	// Update is called once per frame

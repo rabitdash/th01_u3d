@@ -25,13 +25,21 @@ public class UIController : MonoBehaviour {
         #region 按钮事件监听
         confirmButton.onClick.AddListener(delegate
         {
+            CardManager._instance.AddCardTo(0);//Test
             Debug.Log("confirmButtonClicked!");
         });
         logoutButton.onClick.AddListener(delegate
         {
             Application.Quit(); //考虑到网络游戏，这边不能这么写
         });
-
+        cancelButton.onClick.AddListener(delegate
+        {
+            CardManager._instance.DropCardFrom(0);//Test
+        });
+        startButton.onClick.AddListener(delegate
+        {
+            CardManager._instance.NewTurn();
+        });
         #endregion
     }
 	void Start ()
