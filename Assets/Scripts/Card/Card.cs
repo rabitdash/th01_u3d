@@ -14,7 +14,7 @@ public class Card : MonoBehaviour
     public CardInfo cardInfo;  //卡牌信息
     private TextAsset description; //卡牌描述
     private Text textBox; //Debug
-
+    private Transform HeapTransform; //牌堆位置
 
     private GameObject _self;
 
@@ -24,7 +24,6 @@ public class Card : MonoBehaviour
 
         faceImage = transform.Find("Face").GetComponent<Image>();
         //coverImage = transform.Find("Cover").GetComponent<Image>();
-
 
     }
 
@@ -43,6 +42,7 @@ public class Card : MonoBehaviour
         cardInfo.cardID = cardId;
         InitImage();
         _self = GameObject.Find(String.Format("Card{0}/Face", cardId)); //TODO 修改_self名
+        HeapTransform = GameObject.Find(String.Format("Player{0}/cardArea", cardInfo.playerNum)).GetComponent<Transform>();
         //InitDescription();
         //InitCardSkill();
 
@@ -126,7 +126,7 @@ public class Card : MonoBehaviour
         if (!DOTween.IsTweening(transform))
         {
 
-            transform.DOMoveY(transform.position.y + 100f, 1f);
+            transform.DOMoveY(HeapTransform.position.y, 0.1f);//TODO 现在只是假设Player0的情况
             //transform.DOScale(new Vector3(1f, 1f, 1f), 0.01f);
         }
         Debug.Log("OnMouseEnter");
@@ -135,9 +135,9 @@ public class Card : MonoBehaviour
     //玩家鼠标离开卡牌
     public void OnMouseExit() 
     {
-        if (!DOTween.IsTweening(transform))
+        //if (!DOTween.IsTweening(transform))
         {
-            transform.DOMoveY(transform.position.y - 100f, 1f);
+            transform.DOMoveY(HeapTransform.position.y - 10f, 0.1f); //TODO
             //transform.DOScale(new Vector3(0.3f, 0.3f, 0.3f), 0.01f);
         }
         Debug.Log("OnMouseExit");

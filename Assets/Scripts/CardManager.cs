@@ -103,20 +103,21 @@ public class CardManager : MonoBehaviour {
             case 0:
 
                 cardInterval = 20;
-                SetCardSize(card, cardSize:new Vector2(50f, 75f));//设置卡牌大小
                 if (currentState == CardManagerState.Init)//如果是开局发牌
                 {
                     card.transform.localPosition = new Vector3(30f, -10f, 0f); //设置卡牌位置
                     card.transform.DOLocalMove(new Vector3(30f + cardInterval * playerCardNum, -10f, 0f), 1f);
                 }
+                SetCardSize(card, cardSize:new Vector2(50f, 75f));//设置卡牌大小
                 break;
             case 1:
                 cardInterval = 20;
-                SetCardSize(card, cardSize:new Vector2(30f, 45f));
                 if (currentState == CardManagerState.Init)
                 {
                     card.transform.localPosition = new Vector3();
                 }
+                SetCardSize(card, cardSize:new Vector2(30f, 45f));
+
                 break;
             case 2:
                 break;
