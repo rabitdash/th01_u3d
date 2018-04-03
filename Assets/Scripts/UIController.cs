@@ -27,7 +27,7 @@ public class UIController : MonoBehaviour {
         });
         logoutButton.onClick.AddListener(delegate
         {
-            Application.Quit(); //考虑到网络游戏，这边不能这么写
+            Application.Quit(); //TODO 考虑到网络游戏，这边不能这么写
         });
         cancelButton.onClick.AddListener(delegate
         {
