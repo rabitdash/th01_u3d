@@ -85,6 +85,7 @@ public class CardManager : MonoBehaviour {
             currentState = CardManagerState.Init;
         }
     }
+
     //生成卡牌GameObject对象
     private void GenerateCardObject(int playerID, int cardID)//TODO 根据卡牌类型确定生成位置和大小 isInit是否是开局摸牌
     {
@@ -353,8 +354,8 @@ public class CardManager : MonoBehaviour {
 
     void Start()
     {
-        AddCardTo(0);
     }
+
     //功能测试
     private void test()
     {
@@ -366,6 +367,7 @@ public class CardManager : MonoBehaviour {
         {
             Debug.Log(IdOfCardName[cardID]);
         }
+        /*AddCardTo(0);
         AddCardTo(0);
         AddCardTo(0);
         AddCardTo(1);
@@ -376,9 +378,10 @@ public class CardManager : MonoBehaviour {
         AddCardTo(1, "remiliya");
         PlayerHaveCard(0, "Card");
         PlayerHaveCard(1, "八卦炉");
-        AddCardTo(0);
+        AddCardTo(0);*/
     }
 	// Update is called once per frame
+
     private void Update () {
 		
 	}
