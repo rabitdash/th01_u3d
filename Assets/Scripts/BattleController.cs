@@ -10,12 +10,14 @@ public class BattleController : MonoBehaviour
     //public static string message = null; //UIController从外部将消息写入message
     //public setPlayerTurn(int playerNum)
     const int nplayers = 4;//玩家数量
-    private Player Player0 = new Player(0);
-    private Player Player1 = new Player(1);
-    private Player Player2 = new Player(2);
-    private Player Player3 = new Player(3);
+    #region
 
-    public void InitPlayers()
+    private Player Player0;
+    private Player Player1;
+    private Player Player2;
+    private Player Player3;
+    #endregion
+    public void InitPlayers() //初始化Player
     {
         Player0 = new Player(0);
         Player1 = new Player(1);
