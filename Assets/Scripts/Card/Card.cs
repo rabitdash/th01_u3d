@@ -16,8 +16,6 @@ public class Card : MonoBehaviour
     private Text textBox; //Debug
     private Transform HeapTransform; //牌堆位置
 
-    private GameObject _self;
-
 
     void Awake()
     {
@@ -41,8 +39,6 @@ public class Card : MonoBehaviour
         this.cardInfo = cardInfo;
         cardInfo.cardID = cardId;
         InitImage();
-        _self = GameObject.Find(String.Format("Card{0}/Face", cardId)); //TODO 修改_self名
-        HeapTransform = GameObject.Find(String.Format("Player{0}/cardArea", cardInfo.playerNum)).GetComponent<Transform>();
         //InitDescription();
         //InitCardSkill();
 
@@ -123,10 +119,10 @@ public class Card : MonoBehaviour
     //玩家鼠标移到卡牌上
     public void OnMouseEnter()
     {
-        if (!DOTween.IsTweening(transform))
+        //if (!DOTween.IsTweening(transform))
         {
 
-            transform.DOMoveY(HeapTransform.position.y, 0.1f);//TODO 现在只是假设Player0的情况
+            //transform.DOMoveY(HeapTransform.position.y, 0.1f);//TODO 现在只是假设Player0的情况
             //transform.DOScale(new Vector3(1f, 1f, 1f), 0.01f);
         }
         Debug.Log("OnMouseEnter");
@@ -137,16 +133,16 @@ public class Card : MonoBehaviour
     {
         //if (!DOTween.IsTweening(transform))
         {
-            transform.DOMoveY(HeapTransform.position.y - 10f, 0.1f); //TODO
+            //transform.DOMoveY(HeapTransform.position.y - 10f, 0.1f); //TODO
             //transform.DOScale(new Vector3(0.3f, 0.3f, 0.3f), 0.01f);
         }
-        Debug.Log("OnMouseExit");
+        //Debug.Log("OnMouseExit");
     }
     //玩家鼠标点击卡牌
     public void OnMouseDown()
     {
         this.cardInfo.isSelected = !this.cardInfo.isSelected;//卡牌初始化时默认isSelected=false
-        _self.SetActive(!this.cardInfo.isCovered);
+        transform.Find("Face").gameObject.SetActive(!this.cardInfo.isCovered);
         this.cardInfo.isCovered = !this.cardInfo.isCovered;
 
     }

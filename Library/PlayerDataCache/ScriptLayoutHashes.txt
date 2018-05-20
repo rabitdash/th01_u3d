@@ -1,8 +1,8 @@
 WindowsStandalone
 PlayerPath?
-C:/Users/dswxl/Documents/git-repo/th01_u3d/bin/th01_u3d.exe
+C:/Users/Yue/Desktop/界面/新建文件夹/server.exe
 SceneListBegin?
-Assets/Scenes/run.unity
+Assets/Scenes/server.unity
 SceneListEnd?
 4235386cf02b36acdfe4e1b78a4f0ec2 Assembly-CSharp-firstpass.dll:Sirenix.OdinInspector.Demos.HorizontalGroupAttributeExamples
 902392e94c157757d170cf8a9ce2e935 Assembly-CSharp-firstpass.dll:Sirenix.OdinInspector.Demos.GenericMenuExample
@@ -179,7 +179,7 @@ e9bdabf9265d758d56f01bb188916fa8 UnityEngine.Networking.dll:UnityEngine.Networki
 528ea1fd7c01796fc60c4e2f172ea229 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkTransformVisualizer
 bdfca6896a2a86e62c10b8bd44869c7a Assembly-CSharp-firstpass.dll:Sirenix.OdinInspector.Demos.MinMaxValueValueExamples
 d95605b3704da9102f6e34f0340ed7bc Assembly-CSharp-firstpass.dll:Sirenix.OdinInspector.Demos.LabelTextExamples
-b801a51b0b1d144f683931593ebc1c6d Assembly-CSharp.dll:.CardManager
+180fa40e891b83591c663e06524ae09f Assembly-CSharp.dll:.CardManager
 653d7a2fa6b508d7f8ffd81652ffb4ee Assembly-CSharp-firstpass.dll:Sirenix.OdinInspector.Demos.PlaceableObject
 c859d727c9f9e4f5585aaba3782e34f2 Sirenix.OdinInspector.Editor.dll:Sirenix.Serialization.AOTGenerationConfig
 10b00d8b449770875a891010662c4666 Sirenix.OdinInspector.Editor.dll:Sirenix.OdinInspector.Editor.ColorPaletteManager
@@ -249,3 +249,5 @@ a290dfe17d83e7d3d732d2ff1f0caa80 Assembly-CSharp-firstpass.dll:Sirenix.OdinInspe
 e1ce179b956825a1333a0a697e0b083f Sirenix.Serialization.Config.dll:Sirenix.Serialization.GlobalSerializationConfig
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.Card
 6e279e7acd065d4541e7b65ae41cef1b Assembly-CSharp-firstpass.dll:Sirenix.OdinInspector.Demos.TitleGroupExamples
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.NetworkManager
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.Server

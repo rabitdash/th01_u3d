@@ -12,23 +12,26 @@ public class CardManager : MonoBehaviour {
     public GameObject CardPrefab; //卡牌预制件
     public GameObject publicCardHeap; //出牌堆位置
     public GameObject publicDropHeap;//弃牌堆位置
-    const int nplayer = 4; //参与游戏的玩家数量
+
+    private const int nplayer = 2; //参与游戏的玩家数量
     private List<int> allCardIDs = new List<int>(); //所有卡牌ID列表
     private List<int> DrawCardIDs = new List<int>();//摸牌堆卡ID列表
     private List<int> DropCardIDs = new List<int>();//弃牌堆卡ID列表
     private List<CardInfo> allCardInfos = new List<CardInfo>(); //所有的CardInfo
-    private List<Transform> allPlayersTransform = new List<Transform>(); //所有Player的位置
+    public List<Transform> CoveredTrans = new List<Transform>(); //所有Player的位置
+    public List<Transform> FacedTrans = new List<Transform>(); //所有Player的位置
+
     private Dictionary<int, List<int>> _PlayerCards = new Dictionary<int, List<int>>(); //key:玩家编号 value:卡牌ID
     private Dictionary<int, string> IdOfCardName = new Dictionary<int, string>(); //key:卡牌ID value:卡牌名称
     private Dictionary<int, GameObject> _cardIdDictionary = new Dictionary<int, GameObject>(); //key:卡牌编号 value:卡牌GameObject对象
 
-    enum CardManagerState
+    enum State
     {
         Init = 0,//开局发牌
         Run  = 1,//正在游戏
     }
 
-    private CardManagerState currentState = CardManagerState.Init; //初始化当前状态
+    private State currentState = State.Init; //初始化当前状态
     #endregion
 
     //生成玩家数组
@@ -37,10 +40,8 @@ public class CardManager : MonoBehaviour {
         //Init all players transform
         for (var i = 0; i < nplayer; i++)
         {
-            allPlayersTransform.Add(GameObject.Find(String.Format("Canvas/Players/Player{0}/cardArea", i)).GetComponent<Transform>());//查找所有玩家位置
             _PlayerCards.Add(i, new List<int>());//初始化字典
         }
-
     }
 
     //生成CardInfo对象数组
@@ -76,20 +77,32 @@ public class CardManager : MonoBehaviour {
     //TODO 切换CardManager状态
     private void SwitchState()
     {
-        if (currentState == CardManagerState.Init)
+        if (currentState == State.Init)
         {
-            currentState = CardManagerState.Run;
+            currentState = State.Run;
         }
-        else if (currentState == CardManagerState.Run)
+        else if (currentState == State.Run)
         {
-            currentState = CardManagerState.Init;
+            currentState = State.Init;
         }
     }
 
     //生成卡牌GameObject对象
-    private void GenerateCardObject(int playerID, int cardID)//TODO 根据卡牌类型确定生成位置和大小 isInit是否是开局摸牌
+    private void GenerateCardObject(int playerID, int cardID, Transform pos = null)//TODO 根据卡牌类型确定生成位置和大小 isInit是否是开局摸牌
     {
-        var card = Instantiate(CardPrefab, allPlayersTransform[playerID]);//复制构造Card对象,位置在Player
+        //
+        Transform tmp;
+        if (pos == null)
+        {
+            tmp = CoveredTrans[playerID];
+        }
+        else
+        {
+            tmp = pos;
+        }
+        //
+
+        var card = Instantiate(CardPrefab, tmp);//复制构造Card对象,位置在Player暗置区域
         card.GetComponent<Card>().InitCard(allCardInfos[cardID], cardID); //每张卡都有专属ID和CardInfo，利用(1)中生成的CardInfo对象生成Card对象的属性
         _cardIdDictionary.Add(cardID, card); //将卡牌ID与对应的卡牌GameObject对象存入字典
         card.name = string.Format("Card{0}", cardID); //GameObject对象名称
@@ -103,7 +116,7 @@ public class CardManager : MonoBehaviour {
             case 0:
 
                 cardInterval = 20;
-                if (currentState == CardManagerState.Init)//如果是开局发牌
+                if (currentState == State.Init)//如果是开局发牌
                 {
                     card.transform.localPosition = new Vector3(30f, -10f, 0f); //设置卡牌位置
                     card.transform.DOLocalMove(new Vector3(30f + cardInterval * playerCardNum, -10f, 0f), 1f);
@@ -112,18 +125,16 @@ public class CardManager : MonoBehaviour {
                 break;
             case 1:
                 cardInterval = 20;
-                if (currentState == CardManagerState.Init)
+                if (currentState == State.Init)
                 {
                     card.transform.localPosition = new Vector3();
                 }
                 SetCardSize(card, cardSize:new Vector2(30f, 45f));
 
                 break;
-            case 2:
-                break;
         }
 
-        if (currentState == CardManagerState.Run)
+        if (currentState == State.Run)
         {
             RearrangePlayerCards(playerID);
         }
@@ -135,7 +146,7 @@ public class CardManager : MonoBehaviour {
     public void RearrangePlayerCards(int playerID)
     {
         var cardInterval = 20;//TODO 间隔应间接计算
-        var cardNum = _PlayerCards.Count;//当前卡牌数量
+        //var cardNum = _PlayerCards.Count;//当前卡牌数量
         var i = 0;
         foreach (var cardID in _PlayerCards[playerID]) //每张卡都要移动
         {
@@ -329,7 +340,6 @@ public class CardManager : MonoBehaviour {
                 }
             _PlayerCards[playerID].Clear();
         }
-        allPlayersTransform.Clear();
         DrawCardIDs.Clear();
         DropCardIDs.Clear();
         _PlayerCards.Clear();
@@ -340,7 +350,7 @@ public class CardManager : MonoBehaviour {
         InitAllPlayers();
         InitAllCardInfos();
         ShuffleCards();
-        //currentState = CardManagerState.Run;
+        //currentState = State.Run;
     }
 
     // Use this for initialization

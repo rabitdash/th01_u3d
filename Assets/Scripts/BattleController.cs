@@ -21,8 +21,6 @@ public class BattleController : MonoBehaviour
     {
         Player0 = new Player(0);
         Player1 = new Player(1);
-        Player2 = new Player(2);
-        Player3 = new Player(3);
     }
 
     void Awake()

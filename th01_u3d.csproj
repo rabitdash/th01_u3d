@@ -278,7 +278,9 @@
     <Compile Include="Assets\Scripts\Card\CardInfo.cs" />
     <Compile Include="Assets\Scripts\CardManager.cs" />
     <Compile Include="Assets\Scripts\Move.cs" />
+    <Compile Include="Assets\Scripts\NetworkManager.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
+    <Compile Include="Assets\Scripts\Server.cs" />
     <Compile Include="Assets\Scripts\startButton.cs" />
     <Compile Include="Assets\Scripts\UIController.cs" />
   </ItemGroup>
