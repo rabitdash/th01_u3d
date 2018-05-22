@@ -16,7 +16,7 @@ public class Player
     public Player(int id) //初始化构造函数，一开始时调用
     {
         this.ID = id;
-        instance = CardManager._instance;
+        instance = CardManager.Instance;
 }
 
     void Awake()

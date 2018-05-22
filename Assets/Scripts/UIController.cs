@@ -22,7 +22,7 @@ public class UIController : MonoBehaviour {
         #region 按钮事件监听
         confirmButton.onClick.AddListener(delegate
         {
-            CardManager._instance.AddCardTo(0);//Test
+            CardManager.Instance.AddCardTo(0);//Test
             Debug.Log("confirmButtonClicked!");
         });
         logoutButton.onClick.AddListener(delegate
@@ -31,11 +31,11 @@ public class UIController : MonoBehaviour {
         });
         cancelButton.onClick.AddListener(delegate
         {
-            CardManager._instance.DropCardFrom(0);//Test
+            CardManager.Instance.DropCardFrom(0);//Test
         });
         startButton.onClick.AddListener(delegate
         {
-            CardManager._instance.NewTurn();
+            CardManager.Instance.NewTurn();
         });
         #endregion
     }

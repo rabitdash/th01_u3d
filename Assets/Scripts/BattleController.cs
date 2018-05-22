@@ -40,6 +40,8 @@ public class BattleController : MonoBehaviour
         Player1.AddCard();
         Player0.AddCard();
         Player0.AddCard();
+        Player1.AddCard();
+        Player1.AddCard();
     }
     // Update is called once per frame
     void Update()

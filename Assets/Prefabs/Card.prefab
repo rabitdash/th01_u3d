@@ -101,6 +101,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94389befb6ecd9042a94e84288cc6098, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cardInfo:
+    CardName: 
+    CardID: 0
+    playerID: 0
+    isSelected: 0
+    isCovered: 0
+    isShow: 0
+    SiblingIndex: 0
+    Description: 
 --- !u!114 &114689176600280010
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -152,7 +161,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 114078661143445534}
-          m_MethodName: OnMouseDown
+          m_MethodName: OnMouseClick
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
