@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Networking;
 using Random = System.Random;
 
 
@@ -139,20 +140,21 @@ public class CardManager : MonoBehaviour {
 
         }
     }
-
+    
     private List<Vector2> CardRearrangePosition(int PlayerID)//Checked
     {
         var cardInterval = new Vector2(72f,0);//TODO 间隔应间接计算
         var startPosition0 = new Vector2(10f, -15f);
-        float delta = 0f; //间隔变化量
-        int CoveredCardNum = 0;
-        int UncoveredCardNum = 0;
+        var cardNum = _PlayerCards[PlayerID].Count;
+        if (cardNum > 12)
+        {
+            cardInterval = new Vector2(820f / cardNum, 0f);
+        }
         List<Vector2> vector2s = new List<Vector2>();
         for(int i = 0; i < _PlayerCards[PlayerID].Count;i++)
         {
             vector2s.Add(i * cardInterval + startPosition0);
         }
-
         return vector2s;
 
     }
@@ -184,14 +186,14 @@ public class CardManager : MonoBehaviour {
     }
 
     //将某手牌从摸牌堆移至玩家的手牌堆
-    public bool AddCardTo(int playerID, string cardName = null) //注意不要用超了，每次发牌时要检查摸牌堆里是否有牌，还要检查玩家的牌堆是否用超，超了要弃卡
+    public int AddCardTo(int playerID, string cardName = null) //注意不要用超了，每次发牌时要检查摸牌堆里是否有牌，还要检查玩家的牌堆是否用超，超了要弃卡
     {
         //TODO 超出数量限制，弃卡
         //TODO 将动画分离，函数ShowCard()
         if (DrawCardIDs.Count == 0)
         {
             Debug.Log("DrawCardHeap is empty");
-            return false; //摸牌堆里没有卡，直接返回
+            return -1; //摸牌堆里没有卡，直接返回
         }
 
         if (cardName == null) //未指定卡名则随机生成
@@ -201,7 +203,7 @@ public class CardManager : MonoBehaviour {
             GenerateCardObject(playerID, cardID);
             DrawCardIDs.Remove(cardID);
             Debug.Log(String.Format("Randomly add Card {0}", IdOfCardName[cardID]));
-            return true;
+            return cardID;
         }
         else //已指定卡名
         {
@@ -214,14 +216,42 @@ public class CardManager : MonoBehaviour {
                     GenerateCardObject(playerID, cardID);
                     DrawCardIDs.Remove(cardID);
                     Debug.Log(String.Format("Specific add Card {0}", IdOfCardName[cardID]));
-                    return true; //增加卡牌
+                    return cardID; //增加卡牌
                 }
             }
         }
-        return false;
+        return -1;
     }
 
-    public void DropCardFrom(int playerID, string cardName = null)
+    public int AddCardTo(int playerID, int cardID = -1)
+    {
+        if (DrawCardIDs.Count == 0)
+        {
+            Debug.Log("DrawCardHeap is empty");
+            return -1; //摸牌堆里没有卡，直接返回
+        }
+
+        if (cardID == -1) //未指定卡名则随机生成
+        {
+            cardID = DrawCardIDs[0];
+            _PlayerCards[playerID].Add(cardID);
+            GenerateCardObject(playerID, cardID);
+            DrawCardIDs.Remove(cardID);
+            Debug.Log(String.Format("Randomly add Card {0}", IdOfCardName[cardID]));
+            return cardID;
+        }
+        else //已指定卡名
+        {
+
+            _PlayerCards[playerID].Add(cardID);
+            GenerateCardObject(playerID, cardID);
+            DrawCardIDs.Remove(cardID);
+            Debug.Log(String.Format("Specific add Card {0}", IdOfCardName[cardID]));
+            return cardID; //增加卡牌
+        }
+
+    }
+    public int DropCardFrom(int playerID, string cardName = null)
     {
         if (cardName == null)
         {
@@ -231,6 +261,7 @@ public class CardManager : MonoBehaviour {
             DestroyCardObject(cardID);
             _cardIdDictionary.Remove(cardID);
             RearrangePlayerCards(playerID);
+            return cardID;//返回
         }
         else
         {
@@ -246,7 +277,7 @@ public class CardManager : MonoBehaviour {
                     _cardIdDictionary.Remove(cardID);
                     RearrangePlayerCards(0);//整理卡牌
                     Debug.Log("Randomly drop Player{0}'s card");
-                    return;//结束
+                    return cardID;//结束
                 }
             }
 
@@ -255,19 +286,56 @@ public class CardManager : MonoBehaviour {
                 Debug.Log(String.Format("Player{0} has no card to drop", playerID));
             }
         }
-        
+
+        return -1;
     }
 
-    public void GiveCardTo(int fromPlayerID, int toPlayerID, int cardID = -1)//cardID需要特别获取,否则随机丢卡
+    public int DropCardFrom(int playerID, int cardID = -1)
+    {
+        if (cardID == -1)
+        {
+            cardID = _PlayerCards[playerID][new Random(Time.time.GetHashCode()).Next(0, _PlayerCards[playerID].Count)];
+            DropCardIDs.Add(cardID);
+            _PlayerCards[playerID].Remove(cardID);
+            DestroyCardObject(cardID);
+            _cardIdDictionary.Remove(cardID);
+            RearrangePlayerCards(playerID);
+            return cardID;//返回
+        }
+        else
+        {
+            if (_PlayerCards[playerID].Count > 0)
+            {
+                    DropCardIDs.Add(cardID);//弃牌堆加卡
+                    _PlayerCards[playerID].Remove(cardID);//从玩家手中移除卡
+
+                    DestroyCardObject(cardID);//去除卡牌对象
+                    _cardIdDictionary.Remove(cardID);
+                    RearrangePlayerCards(0);//整理卡牌
+                    Debug.Log("Randomly drop Player{0}'s card");
+                    return cardID;//End
+            }
+
+            else
+            {
+                Debug.Log(String.Format("Player{0} has no card to drop", playerID));
+            }
+        }
+
+        return -1;
+    }
+
+    public int GiveCardTo(int fromPlayerID, int toPlayerID, int cardID = -1)//cardID需要特别获取,否则随机丢卡
     {
         if (cardID == -1)
         {
             cardID = _PlayerCards[fromPlayerID][new Random(Time.time.GetHashCode()).Next(0, _PlayerCards[fromPlayerID].Count)];//随机
         }
         _PlayerCards[fromPlayerID].Remove(cardID);
-        DestroyCardObject(0);
+        DestroyCardObject(cardID);
         _PlayerCards[toPlayerID].Add(cardID);
         GenerateCardObject(toPlayerID, cardID);
+        return cardID;
     }
     #endregion
 
@@ -344,10 +412,7 @@ public class CardManager : MonoBehaviour {
     //功能测试
     private void Test()
     {
-        Debug.Log("---");
-        Debug.Log("---");
-        Debug.Log("---"); 
-        Debug.Log(DrawCardIDs.Count);
+        Debug.Log(String.Format("DrawCardIDs.Count:", DrawCardIDs.Count));
         foreach (var cardID in DrawCardIDs)
         {
             Debug.Log(IdOfCardName[cardID]);

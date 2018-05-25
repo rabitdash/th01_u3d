@@ -4,7 +4,6 @@ using UnityEngine.UI;
 public class UIController : MonoBehaviour {
     //负责UI事件
     public static UIController _instance;
-
     #region 按钮定义,须由外部赋值
 
     public Button confirmButton;
@@ -15,14 +14,14 @@ public class UIController : MonoBehaviour {
     #endregion
 
     // Use this for initialization
-    void Awake()
+    void Start()
     {
         _instance = this;
 
         #region 按钮事件监听
         confirmButton.onClick.AddListener(delegate
         {
-            CardManager.Instance.AddCardTo(0);//Test
+            NetSync.Instance.AddCard(BattleController.Player0.AddCard(-1));
             Debug.Log("confirmButtonClicked!");
         });
         logoutButton.onClick.AddListener(delegate
@@ -31,7 +30,7 @@ public class UIController : MonoBehaviour {
         });
         cancelButton.onClick.AddListener(delegate
         {
-            CardManager.Instance.DropCardFrom(0);//Test
+            CardManager.Instance.DropCardFrom(0,-1);//Test
         });
         startButton.onClick.AddListener(delegate
         {
@@ -39,7 +38,7 @@ public class UIController : MonoBehaviour {
         });
         #endregion
     }
-	void Start ()
+	void Awake ()
 	{
 
 	}

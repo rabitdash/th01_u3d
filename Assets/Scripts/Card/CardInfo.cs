@@ -17,7 +17,7 @@ public class CardInfo : IComparable
     public int SiblingIndex; //外部设置
     private bool isDrop; //是否被弃牌
     private bool isUsed; //是否已发动技能
-    private CardTypes cardType; //牌的类型
+    private readonly CardTypes CardType; //牌的类型
     public string Description;
 
     enum CardTypes //卡牌类型
@@ -27,8 +27,6 @@ public class CardInfo : IComparable
         Event     = 3, //事件卡
 
     }
-
-
 
     public CardInfo(int CardID, string CardType, string CardName, string Description) //初始化构造函数
     {
@@ -41,15 +39,15 @@ public class CardInfo : IComparable
         switch (CardType)
         {
             case "神器":
-                cardType = CardTypes.Artifact;
+                this.CardType = CardTypes.Artifact;
                 //Debug.Log("CardTypes.Artifact");
                 break;
             case "人物":
-                cardType = CardTypes.Character;
+                this.CardType = CardTypes.Character;
                 //Debug.Log("CardTypes.Character");
                 break;
             case "事件":
-                cardType = CardTypes.Event;
+                this.CardType = CardTypes.Event;
                 //Debug.Log("CardTypes.Event");
                 break;
             default:
@@ -66,15 +64,15 @@ public class CardInfo : IComparable
         }
         //当前卡比比较的卡优先，返回1
         //可能出bug
-        if((int)cardType < (int)other.cardType)
+        if((int)CardType < (int)other.CardType)
         {
             return 1;
         }
-        if((int)cardType > (int)other.cardType)
+        if((int)CardType > (int)other.CardType)
         {
             return -1;
         }
-        if(cardType == other.cardType)
+        if(CardType == other.CardType)
         {
             return 0;
         }

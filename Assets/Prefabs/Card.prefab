@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 222249293232757714}
   - component: {fileID: 114078661143445534}
   - component: {fileID: 114689176600280010}
+  - component: {fileID: 114923864085307256}
   m_Layer: 5
   m_Name: Card
   m_TagString: Card
@@ -174,6 +175,38 @@ MonoBehaviour:
       m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
         Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   delegates: []
+--- !u!114 &114923864085307256
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1749980829323324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 82
+    i1: 132
+    i2: 170
+    i3: 253
+    i4: 168
+    i5: 130
+    i6: 232
+    i7: 212
+    i8: 168
+    i9: 158
+    i10: 137
+    i11: 13
+    i12: 54
+    i13: 214
+    i14: 118
+    i15: 26
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
 --- !u!114 &114967051776253396
 MonoBehaviour:
   m_ObjectHideFlags: 1

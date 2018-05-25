@@ -14,9 +14,7 @@ public class Card : MonoBehaviour
     public CardInfo cardInfo;  //卡牌信息
     private TextAsset description; //卡牌描述
     private Text textBox; //Debug
-    private Transform HeapTransform; //牌堆位置
     private static int SiblingIndex;
-    private bool isTweening;
 
     public void InitCard(CardInfo cardInfo) //初始化卡牌对象数据
     {
