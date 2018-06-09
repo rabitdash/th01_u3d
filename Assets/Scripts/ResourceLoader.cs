@@ -26,9 +26,12 @@ namespace Tools
             return Resources.Load(String.Format("Cards/Images/{0}", cardInfo.CardID), typeof(Sprite)) as Sprite;
         }
 
-        public static CardSkill LoadCardSkill()
+        public static List<CardSkill> LoadCardSkill()
         {
-            return  new CardSkill();
+            TextAsset ts = Resources.Load("Cards/CardSkills", typeof(TextAsset)) as TextAsset;
+            string json = ts.text;
+            List<CardSkill> CardSkills = JsonConvert.DeserializeObject<List<CardSkill>>(json);
+            return CardSkills;
         }
 
     }

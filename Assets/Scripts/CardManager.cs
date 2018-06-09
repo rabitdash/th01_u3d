@@ -31,6 +31,7 @@ public class CardManager : MonoBehaviour {
     {
         Init = 0,//开局发牌
         Run  = 1,//正在游戏
+        Halt = 2,//游戏结束
     }
 
     private State currentState = State.Init; //初始化当前状态
@@ -186,16 +187,38 @@ public class CardManager : MonoBehaviour {
     }
 
     //将某手牌从摸牌堆移至玩家的手牌堆
+    public int AddCardTo(int playerID, int cardID)
+    {
+        if (DrawCardIDs.Count == 0)
+        {
+            Debug.Log("DrawCardHeap is empty");
+            return -1; //摸牌堆里没有卡，直接返回
+        }
+        if (cardID == -1)
+        {
+            return -1;//No card to add
+        }
+        else //已指定卡
+        {
+            _PlayerCards[playerID].Add(cardID);
+            GenerateCardObject(playerID, cardID);
+            DrawCardIDs.Remove(cardID);
+            Debug.Log(String.Format("Specific add Card {0}", IdOfCardName[cardID]));
+            return cardID; //增加卡牌
+        }
+
+    }
+    
+    //Overload
     public int AddCardTo(int playerID, string cardName = null) //注意不要用超了，每次发牌时要检查摸牌堆里是否有牌，还要检查玩家的牌堆是否用超，超了要弃卡
     {
-        //TODO 超出数量限制，弃卡
+        //TODO 超出数量限制，弃卡,
         //TODO 将动画分离，函数ShowCard()
         if (DrawCardIDs.Count == 0)
         {
             Debug.Log("DrawCardHeap is empty");
             return -1; //摸牌堆里没有卡，直接返回
         }
-
         if (cardName == null) //未指定卡名则随机生成
         {
             var cardID = DrawCardIDs[0];
@@ -207,7 +230,6 @@ public class CardManager : MonoBehaviour {
         }
         else //已指定卡名
         {
-
             foreach (var cardID in DrawCardIDs)
             {
                 if (IdOfCardName[cardID] == cardName) //如果在ID对应卡牌名的字典中找到
@@ -223,107 +245,70 @@ public class CardManager : MonoBehaviour {
         return -1;
     }
 
-    public int AddCardTo(int playerID, int cardID = -1)
-    {
-        if (DrawCardIDs.Count == 0)
-        {
-            Debug.Log("DrawCardHeap is empty");
-            return -1; //摸牌堆里没有卡，直接返回
-        }
-
-        if (cardID == -1) //未指定卡名则随机生成
-        {
-            cardID = DrawCardIDs[0];
-            _PlayerCards[playerID].Add(cardID);
-            GenerateCardObject(playerID, cardID);
-            DrawCardIDs.Remove(cardID);
-            Debug.Log(String.Format("Randomly add Card {0}", IdOfCardName[cardID]));
-            return cardID;
-        }
-        else //已指定卡名
-        {
-
-            _PlayerCards[playerID].Add(cardID);
-            GenerateCardObject(playerID, cardID);
-            DrawCardIDs.Remove(cardID);
-            Debug.Log(String.Format("Specific add Card {0}", IdOfCardName[cardID]));
-            return cardID; //增加卡牌
-        }
-
-    }
-    public int DropCardFrom(int playerID, string cardName = null)
-    {
-        if (cardName == null)
-        {
-            var cardID = _PlayerCards[playerID][new Random(Time.time.GetHashCode()).Next(0, _PlayerCards[playerID].Count)];
-            DropCardIDs.Add(cardID);
-            _PlayerCards[playerID].Remove(cardID);
-            DestroyCardObject(cardID);
-            _cardIdDictionary.Remove(cardID);
-            RearrangePlayerCards(playerID);
-            return cardID;//返回
-        }
-        else
-        {
-            if (_PlayerCards[playerID].Count > 0)
-            {
-                foreach (var cardID in _PlayerCards[playerID])
-                {
-                    if (IdOfCardName[cardID] != cardName) continue;
-                    DropCardIDs.Add(cardID);//弃牌堆加卡
-                    _PlayerCards[playerID].Remove(cardID);//从玩家手中移除卡
-                    
-                    DestroyCardObject(cardID);//去除卡牌对象
-                    _cardIdDictionary.Remove(cardID);
-                    RearrangePlayerCards(0);//整理卡牌
-                    Debug.Log("Randomly drop Player{0}'s card");
-                    return cardID;//结束
-                }
-            }
-
-            else
-            {
-                Debug.Log(String.Format("Player{0} has no card to drop", playerID));
-            }
-        }
-
-        return -1;
-    }
-
-    public int DropCardFrom(int playerID, int cardID = -1)
+    public int DropCardFrom(int playerID, int cardID)
     {
         if (cardID == -1)
         {
-            cardID = _PlayerCards[playerID][new Random(Time.time.GetHashCode()).Next(0, _PlayerCards[playerID].Count)];
-            DropCardIDs.Add(cardID);
-            _PlayerCards[playerID].Remove(cardID);
-            DestroyCardObject(cardID);
+            return -1;//No card to drop
+        }
+        if (_PlayerCards[playerID].Count > 0)
+        {
+            DropCardIDs.Add(cardID);//弃牌堆加卡
+            _PlayerCards[playerID].Remove(cardID);//从玩家手中移除卡
+            DestroyCardObject(cardID);//去除卡牌对象
             _cardIdDictionary.Remove(cardID);
-            RearrangePlayerCards(playerID);
-            return cardID;//返回
+            RearrangePlayerCards(0);//整理卡牌
+            Debug.Log("Randomly drop Player{0}'s card");
+            return cardID;//End
         }
         else
         {
-            if (_PlayerCards[playerID].Count > 0)
+            Debug.Log(String.Format("Player{0} has no card to drop", playerID));
+            return -1;
+        }
+    }
+
+    //Overload
+    public int DropCardFrom(int playerID, string cardName = null)
+    {
+        if (_PlayerCards[playerID].Count > 0)//card exist to drop
+        {
+            if (cardName == null)
             {
-                    DropCardIDs.Add(cardID);//弃牌堆加卡
-                    _PlayerCards[playerID].Remove(cardID);//从玩家手中移除卡
-
-                    DestroyCardObject(cardID);//去除卡牌对象
-                    _cardIdDictionary.Remove(cardID);
-                    RearrangePlayerCards(0);//整理卡牌
-                    Debug.Log("Randomly drop Player{0}'s card");
-                    return cardID;//End
+                var cardID =
+                    _PlayerCards[playerID][new Random(Time.time.GetHashCode()).Next(0, _PlayerCards[playerID].Count)];
+                DropCardIDs.Add(cardID);
+                _PlayerCards[playerID].Remove(cardID);
+                DestroyCardObject(cardID);
+                _cardIdDictionary.Remove(cardID);
+                RearrangePlayerCards(playerID);
+                return cardID; //返回
             }
-
             else
             {
-                Debug.Log(String.Format("Player{0} has no card to drop", playerID));
+
+                foreach (var cardID in _PlayerCards[playerID])
+                {
+                    if (IdOfCardName[cardID] != cardName) continue;
+                    DropCardIDs.Add(cardID); //弃牌堆加卡
+                    _PlayerCards[playerID].Remove(cardID); //从玩家手中移除卡
+
+                    DestroyCardObject(cardID); //去除卡牌对象
+                    _cardIdDictionary.Remove(cardID);
+                    RearrangePlayerCards(0); //整理卡牌
+                    Debug.Log("Randomly drop Player{0}'s card");
+                    return cardID; //结束
+                }
             }
         }
-
+        else
+        {
+            Debug.Log(String.Format("Player{0} has no card to drop", playerID));
+        }
         return -1;
     }
+
+
 
     public int GiveCardTo(int fromPlayerID, int toPlayerID, int cardID = -1)//cardID需要特别获取,否则随机丢卡
     {

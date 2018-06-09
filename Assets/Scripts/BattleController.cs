@@ -30,7 +30,7 @@ public class Player
 
     public int AddCard(int id = -1)
     {
-        id = instance.AddCardTo(this.ID, id);//如果无法加卡返回-1
+        NetSync.Instance.AddCard(id);
         return id;
     }
     /// <summary>
@@ -56,7 +56,7 @@ public class BattleController : MonoBehaviour
     //变量定义
     //public static string message = null; //UIController从外部将消息写入message
     //public setPlayerTurn(int playerNum)
-    const int nplayers = 4;//玩家数量
+    public const int nplayers = 2;//玩家数量
     #region
     public static Player Player0;
     public static Player Player1; 

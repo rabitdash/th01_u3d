@@ -5,9 +5,7 @@ using UnityEngine;
 using Newtonsoft.Json;
 
 //卡牌技能公共描述
-[Serializable]
-public class CardSkill : ScriptableObject
+public class CardSkill
 {
-    
-
+    public CardSkill() { }
 }
