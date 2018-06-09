@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="3fb19357-028c-4468-be1f-2c2436e49724" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.vs/th01_u3d/v15/.suo" beforeDir="false" afterPath="$PROJECT_DIR$/.vs/th01_u3d/v15/.suo" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vs/th01_u3d/v15/Server/sqlite3/storage.ide" beforeDir="false" afterPath="$PROJECT_DIR$/.vs/th01_u3d/v15/Server/sqlite3/storage.ide" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vs/th01_u3d/v15/Server/sqlite3/storage.ide-shm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vs/th01_u3d/v15/Server/sqlite3/storage.ide-wal" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Cards/Images/Thumbs.db" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Cards/Images/Thumbs.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/CardManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/CardManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Library/CurrentLayout.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/Library/CurrentLayout.dwlt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Library/EditorUserBuildSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Library/EditorUserBuildSettings.asset" afterDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FavoritesManager">
+    <favorites_list name="th01_u3d" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file leaf-file-name="CardManager.cs" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Assets/Scripts/CardManager.cs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="494">
+              <caret line="33" column="5" selection-start-line="33" selection-start-column="5" selection-end-line="33" selection-end-column="5" />
+              <folding>
+                <marker date="1528543743099" expanded="false" signature="6:181" ph="..." />
+                <marker date="1528543743099" expanded="true" signature="225:13211" ph="{...}" />
+                <marker date="1528543743099" expanded="true" signature="231:1377" ph="变量定义" />
+                <marker date="1528543743099" expanded="true" signature="1247:1307" ph="{...}" />
+                <marker date="1528543743099" expanded="true" signature="1425:1593" ph="{...}" />
+                <marker date="1528543743099" expanded="true" signature="1510:1587" ph="{...}" />
+                <marker date="1528543743099" expanded="true" signature="1651:1971" ph="{...}" />
+                <marker date="1528543743099" expanded="true" signature="1780:1965" ph="{...}" />
+                <marker date="1528543743099" expanded="true" signature="2030:2243" ph="{...}" />
+                <marker date="1528543743099" expanded="true" signature="2076:2134" ph="{...}" />
+                <marker date="1528543743099" expanded="true" signature="2178:2237" ph="{...}" />
+                <marker date="1528543743099" expanded="true" signature="2386:3397" ph="{...}" />
+                <marker date="1528543743099" expanded="true" signature="2453:2517" ph="{...}" />
+                <marker date="1528543743099" expanded="true" signature="2530:2575" ph="{...}" />
+                <marker date="1528543743099" expanded="true" signature="3039:3184" ph="{...}" />
+                <marker date="1528543743099" expanded="true" signature="3228:3267" ph="{...}" />
+                <marker date="1528543743099" expanded="false" signature="3403:5183" ph="GenerateCardObject()调用子方法" />
+                <marker date="1528543743099" expanded="true" signature="3514:4585" ph="{...}" />
+                <marker date="1528543743099" expanded="true" signature="3596:3636" ph="{...}" />
+                <marker date="1528543743099" expanded="true" signature="4074:4297" ph="{...}" />
+                <marker date="1528543743099" expanded="true" signature="4379:4579" ph="{...}" />
+                <marker date="1528543743099" expanded="true" signature="4661:5167" ph="{...}" />
+                <marker date="1528543743099" expanded="true" signature="4859:4939" ph="{...}" />
+                <marker date="1528543743099" expanded="true" signature="5054:5135" ph="{...}" />
+                <marker date="1528543743099" expanded="true" signature="5255:5364" ph="{...}" />
+                <marker date="1528543743099" expanded="false" signature="5370:10786" ph="Player类调用方法主体" />
+                <marker date="1528543743099" expanded="true" signature="5477:5850" ph="{...}" />
+                <marker date="1528543743099" expanded="true" signature="5575:5822" ph="{...}" />
+                <marker date="1528543743099" expanded="true" signature="5654:5812" ph="{...}" />
+                <marker date="1528543743099" expanded="true" signature="5984:7095" ph="{...}" />
+                <marker date="1528543743099" expanded="true" signature="5999:6049" ph="/* TODO 超出数量限制，弃卡 ... */" />
+                <marker date="1528543743099" expanded="true" signature="6085:6191" ph="{...}" />
+                <marker date="1528543743099" expanded="true" signature="6235:6546" ph="{...}" />
+                <marker date="1528543743099" expanded="true" signature="6567:7070" ph="{...}" />
+                <marker date="1528543743099" expanded="true" signature="6626:7060" ph="{...}" />
+                <marker date="1528543743099" expanded="true" signature="6713:7046" ph="{...}" />
+                <marker date="1528543743099" expanded="true" signature="7147:7948" ph="{...}" />
+                <marker date="1528543743099" expanded="true" signature="7189:7295" ph="{...}" />
+                <marker date="1528543743099" expanded="true" signature="7335:7642" ph="{...}" />
+                <marker date="1528543743099" expanded="true" signature="7663:7941" ph="{...}" />
+                <marker date="1528543743099" expanded="true" signature="8014:9236" ph="{...}" />
+                <marker date="1528543743099" expanded="true" signature="8050:8442" ph="{...}" />
+                <marker date="1528543743099" expanded="true" signature="8455:9210" ph="{...}" />
+                <marker date="1528543743099" expanded="true" signature="8515:9069" ph="{...}" />
+                <marker date="1528543743099" expanded="true" signature="8592:9055" ph="{...}" />
+                <marker date="1528543743099" expanded="true" signature="9087:9200" ph="{...}" />
+                <marker date="1528543743099" expanded="true" signature="9291:10279" ph="{...}" />
+                <marker date="1528543743099" expanded="true" signature="9323:9665" ph="{...}" />
+                <marker date="1528543743099" expanded="true" signature="9678:10273" ph="{...}" />
+                <marker date="1528543743099" expanded="true" signature="9738:10105" ph="{...}" />
+                <marker date="1528543743099" expanded="true" signature="10123:10263" ph="{...}" />
+                <marker date="1528543743099" expanded="true" signature="10378:10771" ph="{...}" />
+                <marker date="1528543743099" expanded="true" signature="10410:10562" ph="{...}" />
+                <marker date="1528543743099" expanded="true" signature="10827:10894" ph="{...}" />
+                <marker date="1528543743099" expanded="true" signature="10975:11693" ph="{...}" />
+                <marker date="1528543743099" expanded="true" signature="11368:11660" ph="{...}" />
+                <marker date="1528543743099" expanded="true" signature="11732:12343" ph="{...}" />
+                <marker date="1528543743099" expanded="true" signature="11802:12012" ph="{...}" />
+                <marker date="1528543743099" expanded="true" signature="11875:11958" ph="{...}" />
+                <marker date="1528543743099" expanded="true" signature="12406:12538" ph="{...}" />
+                <marker date="1528543743099" expanded="true" signature="12556:12568" ph="{...}" />
+                <marker date="1528543743099" expanded="true" signature="12604:13137" ph="{...}" />
+                <marker date="1528543743099" expanded="true" signature="12729:12794" ph="{...}" />
+                <marker date="1528543743099" expanded="true" signature="12803:13131" ph="/* AddCardTo(0); ... */" />
+                <marker date="1528543743099" expanded="true" signature="13202:13209" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/CardManager.cs" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/Assets/Scripts/CardManager.cs" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="NodePackageJsonFileManager">
+    <packageJsonPaths />
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="85" />
+    <option name="y" value="72" />
+    <option name="width" value="1750" />
+    <option name="height" value="983" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="UnityExplorer" proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="SolutionExplorer">
+        <option name="show-file-system" value="false" />
+        <option name="show-all-items" value="false" />
+      </pane>
+      <pane id="Scratches" />
+      <pane id="UnityExplorer">
+        <subPane>
+          <expand>
+            <path>
+              <item name="" type="ad4990d8:FileSystemViewPaneBase$ProjectViewPaneTreeStructure$createRoot$1" />
+              <item name="th01_u3d" type="483dac07:UnityExplorerNode$Root" />
+            </path>
+            <path>
+              <item name="" type="ad4990d8:FileSystemViewPaneBase$ProjectViewPaneTreeStructure$createRoot$1" />
+              <item name="th01_u3d" type="483dac07:UnityExplorerNode$Root" />
+              <item name="" type="1045f7f1:UnityExplorerNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+        <option name="show-hidden-items" value="false" />
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="Rider.ProjectViewActivator.IsNotFirstRun" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Color Scheme Font" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
+      <option name="listenPortForConnections" value="false" />
+      <option name="pid" />
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="3fb19357-028c-4468-be1f-2c2436e49724" name="Default" comment="" />
+      <created>1528543078745</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1528543078745</updated>
+      <workItem from="1528543082320" duration="664000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="664000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-7" y="23" width="1550" height="848" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="right" id="Errors In Solution" order="0" weight="0.3297587" />
+      <window_info anchor="bottom" id="Event Log" side_tool="true" />
+      <window_info anchor="bottom" id="Unit Tests" />
+      <window_info anchor="bottom" id="Database Changes" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Version Control" />
+      <window_info anchor="bottom" id="Terminal" />
+      <window_info active="true" anchor="right" content_ui="combo" id="Project" order="5" visible="true" weight="0.25" />
+      <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
+      <window_info anchor="right" id="Database" order="1" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info id="Favorites" order="0" side_tool="true" weight="0.3297587" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="2" type="SLIDING" weight="0.4" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="NuGet" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="4" weight="0.25" />
+      <window_info anchor="right" id="Ant Build" order="3" weight="0.25" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Message" order="0" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="UnityUnitTestConfiguration" currentTestLauncher="NUnit" />
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/Assets/Scripts/CardManager.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="494">
+          <caret line="33" column="5" selection-start-line="33" selection-start-column="5" selection-end-line="33" selection-end-column="5" />
+          <folding>
+            <marker date="1528543743099" expanded="false" signature="6:181" ph="..." />
+            <marker date="1528543743099" expanded="true" signature="225:13211" ph="{...}" />
+            <marker date="1528543743099" expanded="true" signature="231:1377" ph="变量定义" />
+            <marker date="1528543743099" expanded="true" signature="1247:1307" ph="{...}" />
+            <marker date="1528543743099" expanded="true" signature="1425:1593" ph="{...}" />
+            <marker date="1528543743099" expanded="true" signature="1510:1587" ph="{...}" />
+            <marker date="1528543743099" expanded="true" signature="1651:1971" ph="{...}" />
+            <marker date="1528543743099" expanded="true" signature="1780:1965" ph="{...}" />
+            <marker date="1528543743099" expanded="true" signature="2030:2243" ph="{...}" />
+            <marker date="1528543743099" expanded="true" signature="2076:2134" ph="{...}" />
+            <marker date="1528543743099" expanded="true" signature="2178:2237" ph="{...}" />
+            <marker date="1528543743099" expanded="true" signature="2386:3397" ph="{...}" />
+            <marker date="1528543743099" expanded="true" signature="2453:2517" ph="{...}" />
+            <marker date="1528543743099" expanded="true" signature="2530:2575" ph="{...}" />
+            <marker date="1528543743099" expanded="true" signature="3039:3184" ph="{...}" />
+            <marker date="1528543743099" expanded="true" signature="3228:3267" ph="{...}" />
+            <marker date="1528543743099" expanded="false" signature="3403:5183" ph="GenerateCardObject()调用子方法" />
+            <marker date="1528543743099" expanded="true" signature="3514:4585" ph="{...}" />
+            <marker date="1528543743099" expanded="true" signature="3596:3636" ph="{...}" />
+            <marker date="1528543743099" expanded="true" signature="4074:4297" ph="{...}" />
+            <marker date="1528543743099" expanded="true" signature="4379:4579" ph="{...}" />
+            <marker date="1528543743099" expanded="true" signature="4661:5167" ph="{...}" />
+            <marker date="1528543743099" expanded="true" signature="4859:4939" ph="{...}" />
+            <marker date="1528543743099" expanded="true" signature="5054:5135" ph="{...}" />
+            <marker date="1528543743099" expanded="true" signature="5255:5364" ph="{...}" />
+            <marker date="1528543743099" expanded="false" signature="5370:10786" ph="Player类调用方法主体" />
+            <marker date="1528543743099" expanded="true" signature="5477:5850" ph="{...}" />
+            <marker date="1528543743099" expanded="true" signature="5575:5822" ph="{...}" />
+            <marker date="1528543743099" expanded="true" signature="5654:5812" ph="{...}" />
+            <marker date="1528543743099" expanded="true" signature="5984:7095" ph="{...}" />
+            <marker date="1528543743099" expanded="true" signature="5999:6049" ph="/* TODO 超出数量限制，弃卡 ... */" />
+            <marker date="1528543743099" expanded="true" signature="6085:6191" ph="{...}" />
+            <marker date="1528543743099" expanded="true" signature="6235:6546" ph="{...}" />
+            <marker date="1528543743099" expanded="true" signature="6567:7070" ph="{...}" />
+            <marker date="1528543743099" expanded="true" signature="6626:7060" ph="{...}" />
+            <marker date="1528543743099" expanded="true" signature="6713:7046" ph="{...}" />
+            <marker date="1528543743099" expanded="true" signature="7147:7948" ph="{...}" />
+            <marker date="1528543743099" expanded="true" signature="7189:7295" ph="{...}" />
+            <marker date="1528543743099" expanded="true" signature="7335:7642" ph="{...}" />
+            <marker date="1528543743099" expanded="true" signature="7663:7941" ph="{...}" />
+            <marker date="1528543743099" expanded="true" signature="8014:9236" ph="{...}" />
+            <marker date="1528543743099" expanded="true" signature="8050:8442" ph="{...}" />
+            <marker date="1528543743099" expanded="true" signature="8455:9210" ph="{...}" />
+            <marker date="1528543743099" expanded="true" signature="8515:9069" ph="{...}" />
+            <marker date="1528543743099" expanded="true" signature="8592:9055" ph="{...}" />
+            <marker date="1528543743099" expanded="true" signature="9087:9200" ph="{...}" />
+            <marker date="1528543743099" expanded="true" signature="9291:10279" ph="{...}" />
+            <marker date="1528543743099" expanded="true" signature="9323:9665" ph="{...}" />
+            <marker date="1528543743099" expanded="true" signature="9678:10273" ph="{...}" />
+            <marker date="1528543743099" expanded="true" signature="9738:10105" ph="{...}" />
+            <marker date="1528543743099" expanded="true" signature="10123:10263" ph="{...}" />
+            <marker date="1528543743099" expanded="true" signature="10378:10771" ph="{...}" />
+            <marker date="1528543743099" expanded="true" signature="10410:10562" ph="{...}" />
+            <marker date="1528543743099" expanded="true" signature="10827:10894" ph="{...}" />
+            <marker date="1528543743099" expanded="true" signature="10975:11693" ph="{...}" />
+            <marker date="1528543743099" expanded="true" signature="11368:11660" ph="{...}" />
+            <marker date="1528543743099" expanded="true" signature="11732:12343" ph="{...}" />
+            <marker date="1528543743099" expanded="true" signature="11802:12012" ph="{...}" />
+            <marker date="1528543743099" expanded="true" signature="11875:11958" ph="{...}" />
+            <marker date="1528543743099" expanded="true" signature="12406:12538" ph="{...}" />
+            <marker date="1528543743099" expanded="true" signature="12556:12568" ph="{...}" />
+            <marker date="1528543743099" expanded="true" signature="12604:13137" ph="{...}" />
+            <marker date="1528543743099" expanded="true" signature="12729:12794" ph="{...}" />
+            <marker date="1528543743099" expanded="true" signature="12803:13131" ph="/* AddCardTo(0); ... */" />
+            <marker date="1528543743099" expanded="true" signature="13202:13209" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>
